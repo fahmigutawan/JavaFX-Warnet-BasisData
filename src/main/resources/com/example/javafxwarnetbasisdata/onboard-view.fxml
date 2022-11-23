@@ -8,14 +8,16 @@
         alignment="CENTER"
         xmlns="http://javafx.com/javafx/11.0.2"
         xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="com.example.javafxwarnetbasisdata.controller.OnboardController">
+        fx:controller="com.example.javafxwarnetbasisdata.controller.OnboardController"
+        spacing="8.0"
+>
 
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
    </padding>
 
    <children>
-      <Label text="Selamat datang di Sukamaju App" />
+      <Label text="Selamat datang di Sukamaju-NET App" />
       <Button fx:id="onboard_loginuser_btn" mnemonicParsing="false" text="Masuk sebagai Pengguna" />
       <Button fx:id="onboard_loginadmin_btn" mnemonicParsing="false" text="Masuk sebagai Admin" onAction="#onboardLoginAdminClicked"/>
       <Button fx:id="onboard_exit_btn" mnemonicParsing="false" text="Keluar" />

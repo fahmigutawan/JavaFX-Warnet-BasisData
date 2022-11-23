@@ -4,30 +4,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane
-        xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="com.example.javafxwarnetbasisdata.controller.LoginAdminController">
+<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.LoginAdminController">
     <center>
         <VBox alignment="CENTER" spacing="8.0">
             <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="8.0"/>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="8.0" />
             </padding>
 
             <children>
-                <Label text="Masuk sebagai Admin"/>
-                <TextField fx:id="admin_login_username" promptText="Username"/>
-                <PasswordField fx:id="admin_login_password" promptText="Password"/>
-                <Button alignment="CENTER" mnemonicParsing="false" text="Masuk"/>
+                <Label text="Masuk sebagai Admin" />
+                <TextField fx:id="admin_login_username" maxWidth="200" promptText="Username" />
+                <PasswordField fx:id="admin_login_password" maxWidth="200" promptText="Password" />
+                <Button alignment="CENTER" mnemonicParsing="false" text="Masuk" onAction="#onLoginClicked" />
             </children>
         </VBox>
     </center>
     <top>
         <HBox BorderPane.alignment="CENTER">
             <padding>
-                <Insets left="20.0" right="20.0" top="20.0"/>
+                <Insets left="20.0" right="20.0" top="20.0" />
             </padding>
             <children>
-                <Button fx:id="admin_login_back_btn" mnemonicParsing="false" text="Kembali" onAction="#onBackClicked"/>
+                <Button fx:id="admin_login_back_btn" mnemonicParsing="false" onAction="#onBackClicked" text="Kembali" />
             </children>
         </HBox>
     </top>

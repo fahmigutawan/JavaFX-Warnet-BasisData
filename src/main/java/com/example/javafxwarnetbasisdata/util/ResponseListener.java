@@ -4,5 +4,5 @@ import java.sql.SQLException;
 
 public interface ResponseListener {
     void onSuccess(Object o);
-    void onFailed(SQLException e);
+    void onFailed(CustomException e);
 }
