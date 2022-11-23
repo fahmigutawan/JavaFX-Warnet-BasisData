@@ -49,6 +49,9 @@ public class Repository {
                     // No user found
                     listener.onFailed(new CustomException("User tidak ditemukan. Silahkan registrasi terlebih dahulu"));
                 }
+            } else {
+                // No user found
+                listener.onFailed(new CustomException("User tidak ditemukan. Silahkan registrasi terlebih dahulu"));
             }
         } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
@@ -92,6 +95,9 @@ public class Repository {
                     // No user found
                     listener.onFailed(new CustomException("User tidak ditemukan. Silahkan registrasi terlebih dahulu"));
                 }
+            } else {
+                // No user found
+                listener.onFailed(new CustomException("User tidak ditemukan. Silahkan registrasi terlebih dahulu"));
             }
         } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
