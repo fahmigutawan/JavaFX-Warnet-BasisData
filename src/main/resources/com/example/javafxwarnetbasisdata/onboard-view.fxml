@@ -18,7 +18,7 @@
 
    <children>
       <Label text="Selamat datang di Sukamaju-NET App" />
-      <Button fx:id="onboard_loginuser_btn" mnemonicParsing="false" text="Masuk sebagai Pengguna" />
+      <Button fx:id="onboard_loginuser_btn" mnemonicParsing="false" text="Masuk sebagai Pengguna" onAction="#onboardLoginUserClicked"/>
       <Button fx:id="onboard_loginadmin_btn" mnemonicParsing="false" text="Masuk sebagai Admin" onAction="#onboardLoginAdminClicked"/>
       <Button fx:id="onboard_exit_btn" mnemonicParsing="false" text="Keluar" />
    </children>
