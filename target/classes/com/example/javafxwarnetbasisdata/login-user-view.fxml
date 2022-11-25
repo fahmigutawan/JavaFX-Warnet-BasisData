@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.javafxwarnetbasisdata.controller.LoginUserController">
+    <center>
+        <VBox alignment="CENTER" spacing="8.0">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="8.0"/>
+            </padding>
+
+            <children>
+                <Label text="Masuk sebagai Pelanggan"/>
+                <TextField fx:id="user_login_username" maxWidth="200" promptText="Username"/>
+                <PasswordField fx:id="user_login_password" maxWidth="200" promptText="Password"/>
+                <Button alignment="CENTER" mnemonicParsing="false" onAction="#onLoginClicked" text="Masuk"/>
+                <HBox spacing="8.0" alignment="CENTER">
+                    <children>
+                        <Label text="Belum punya akun?"/>
+                        <Label fx:id="register_klik_disini_btn" text="Klik di sini" textFill="#0015ff"
+                               onMouseClicked="#onRegisterClicked"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
+    <top>
+        <HBox BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="20.0" right="20.0" top="20.0"/>
+            </padding>
+            <children>
+                <Button fx:id="user_login_back_btn" mnemonicParsing="false" onAction="#onBackClicked" text="Kembali"/>
+            </children>
+        </HBox>
+    </top>
+</BorderPane>
