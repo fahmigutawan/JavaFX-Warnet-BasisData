@@ -3,9 +3,9 @@ package com.example.javafxwarnetbasisdata.repository;
 import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.DbUrl;
 import com.example.javafxwarnetbasisdata.util.ResponseListener;
+import com.example.javafxwarnetbasisdata.util.TemporaryMemory;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class Repository {
     private static Connection connection() throws SQLException {
@@ -40,6 +40,7 @@ public class Repository {
                 if (resultCount.getInt("count") > 0) {
                     if (result.getString("password").equals(adminPassword)) {
                         // Success
+                        TemporaryMemory.savedAdminId = result.getString("admin_id");
                         listener.onSuccess(null);
                     } else {
                         // Wrong password
@@ -49,6 +50,9 @@ public class Repository {
                     // No user found
                     listener.onFailed(new CustomException("User tidak ditemukan. Silahkan registrasi terlebih dahulu"));
                 }
+            } else {
+                // No user found
+                listener.onFailed(new CustomException("User tidak ditemukan. Silahkan registrasi terlebih dahulu"));
             }
         } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
@@ -83,6 +87,7 @@ public class Repository {
                 if (resultCount.getInt("count") > 0) {
                     if (result.getString("password").equals(password)) {
                         // Success
+                        TemporaryMemory.savedUserId = result.getString("user_id");
                         listener.onSuccess(null);
                     } else {
                         // Wrong password
@@ -92,8 +97,58 @@ public class Repository {
                     // No user found
                     listener.onFailed(new CustomException("User tidak ditemukan. Silahkan registrasi terlebih dahulu"));
                 }
+            } else {
+                // No user found
+                listener.onFailed(new CustomException("User tidak ditemukan. Silahkan registrasi terlebih dahulu"));
             }
         } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Register new account for user
+    public static void registerUser(
+            String username,
+            String password,
+            ResponseListener listener
+    ){
+        try(Connection conn = connection()){
+            // Get user count
+            String userCount = "SELECT COUNT(*) as count " +
+                    "FROM customer";
+            PreparedStatement userCountStatement = conn.prepareStatement(userCount);
+            ResultSet userCountResult = userCountStatement.executeQuery();
+            int userCountInt = 0;
+            if(userCountResult.next()){
+                userCountInt = userCountResult.getInt("count");
+            }
+
+            // Get user with same username, to check if username has been used
+            String userWithUsernameCount = "SELECT COUNT(*) as count " +
+                    "FROM customer " +
+                    "WHERE username=?";
+            PreparedStatement userWithUsernameCountStatement = conn.prepareStatement(userWithUsernameCount);
+            userWithUsernameCountStatement.setString(1,username);
+            ResultSet userWithUsernameCountResult = userWithUsernameCountStatement.executeQuery();
+            if(userWithUsernameCountResult.next()){
+                if(userWithUsernameCountResult.getInt("count") > 0){
+                    listener.onFailed(new CustomException("Username telah digunakan. Buat username lain"));
+                    return;
+                }
+            }
+
+            // If all checked, then register below here
+            String registerUser = "INSERT INTO customer (user_id, username, password) " +
+                    "VALUES(?, ?, ?)";
+            PreparedStatement registerUserStatement = conn.prepareStatement(registerUser);
+            registerUserStatement.setString(1, String.format("user-%d", userCountInt));
+            registerUserStatement.setString(2, username);
+            registerUserStatement.setString(3, password);
+            registerUserStatement.executeUpdate();
+
+            TemporaryMemory.savedUserId = String.format("user-%d", userCountInt);
+            listener.onSuccess(null);
+        }catch (SQLException e){
             listener.onFailed(new CustomException(e.getMessage()));
         }
     }
