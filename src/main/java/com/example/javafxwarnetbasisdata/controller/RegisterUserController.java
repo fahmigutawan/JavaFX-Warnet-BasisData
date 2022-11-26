@@ -22,7 +22,7 @@ public class RegisterUserController {
 
     public void onBackClicked() throws IOException {
         Stage stage = (Stage) user_register_back_btn.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/javafxwarnetbasisdata/onboard-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/javafxwarnetbasisdata/login-user-view.fxml"));
         Scene scene = new CustomScene(root);
         stage.setScene(scene);
     }

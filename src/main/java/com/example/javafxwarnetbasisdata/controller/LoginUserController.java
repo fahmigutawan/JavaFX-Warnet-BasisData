@@ -32,7 +32,15 @@ public class LoginUserController {
                 new ResponseListener() {
                     @Override
                     public void onSuccess(Object o) {
-
+                        try{
+                            Stage stage = (Stage) user_login_back_btn.getScene().getWindow();
+                            Parent root = FXMLLoader.load(getClass().getResource("/com/example/javafxwarnetbasisdata/home-user-view.fxml"));
+                            Scene scene = new CustomScene(root);
+                            stage.setScene(scene);
+                        }catch (Exception e){
+                            Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
+                            alert.show();
+                        }
                     }
 
                     @Override
