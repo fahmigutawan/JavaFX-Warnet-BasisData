@@ -79,14 +79,14 @@
         <TableView fx:id="TableView" layoutX="339.0" layoutY="22.0" prefHeight="354.0" prefWidth="807.0">
             <columns>
                 <TableColumn fx:id="idColumn" prefWidth="55.0" text="ID" />
-                <TableColumn fx:id="titleColumn" prefWidth="122.0" text="Salary Acc Number" />
-                <TableColumn fx:id="authorColumn" prefWidth="98.0" text="Salary" />
-                <TableColumn fx:id="yearColumn" prefWidth="91.0" text="Name" />
-                <TableColumn fx:id="pagesColumn" prefWidth="125.0" text="Phone Number" />
-                <TableColumn fx:id="testColumn" prefWidth="90.0" text="Street" />
-                <TableColumn prefWidth="65.0" text="City" />
-                <TableColumn prefWidth="86.0" text="Province" />
-                <TableColumn prefWidth="75.0" text="Postcode" />
+                <TableColumn fx:id="salaryAccColumn" prefWidth="122.0" text="Salary Acc Number" />
+                <TableColumn fx:id="salaryColumn" prefWidth="98.0" text="Salary" />
+                <TableColumn fx:id="nameColumn" prefWidth="91.0" text="Name" />
+                <TableColumn fx:id="no_telpColumn" prefWidth="125.0" text="Phone Number" />
+                <TableColumn fx:id="jalanColumn" prefWidth="90.0" text="Street" />
+                <TableColumn fx:id="kotaColumn" prefWidth="65.0" text="City" />
+                <TableColumn fx:id="provinsiColumn" prefWidth="86.0" text="Province" />
+                <TableColumn fx:id="kodeposColumn" prefWidth="75.0" text="Postcode" />
             </columns>
         </TableView>
     </children>
