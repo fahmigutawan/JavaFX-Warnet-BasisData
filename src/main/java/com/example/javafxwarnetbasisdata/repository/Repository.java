@@ -2,6 +2,7 @@ package com.example.javafxwarnetbasisdata.repository;
 
 import com.example.javafxwarnetbasisdata.listener.AvailableComputerListener;
 import com.example.javafxwarnetbasisdata.listener.UserModelListener;
+import com.example.javafxwarnetbasisdata.model.ComputerModel;
 import com.example.javafxwarnetbasisdata.model.UserModel;
 import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.DbUrl;
@@ -9,6 +10,7 @@ import com.example.javafxwarnetbasisdata.listener.ResponseListener;
 import com.example.javafxwarnetbasisdata.util.TemporaryMemory;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Repository {
     private static Connection connection() throws SQLException {
@@ -189,9 +191,53 @@ public class Repository {
             AvailableComputerListener listener
     ) {
         try (Connection conn = connection()) {
+            // Get unavailable computers
+            String unavailableComputersQuery = "select pc.komputer_id, pc.spek_kategori, pc.harga_per_jam " +
+                    "from komputer pc " +
+                    "inner join pesanan_sewa_komputer pesanan " +
+                    "on pesanan.komputer_id = pc.komputer_id";
+            Statement unavailableComputersStatement = conn.createStatement();
+            ResultSet unavailableComputersResult = unavailableComputersStatement.executeQuery(unavailableComputersQuery);
+            ArrayList<ComputerModel> listOfUnavailableComputers = new ArrayList<>();
+            while (unavailableComputersResult.next()) {
+                listOfUnavailableComputers.add(
+                        new ComputerModel(
+                                unavailableComputersResult.getString("komputer_id"),
+                                unavailableComputersResult.getString("spek_kategori"),
+                                unavailableComputersResult.getInt("harga_per_jam")
+                        )
+                );
+            }
+
+            // Get available computers
+            String availableComputersQuery = "select * " +
+                    "from komputer pc " +
+                    "where pc.komputer_id not in (" +
+                    "select pc2.komputer_id " +
+                    "from komputer pc2 " +
+                    "inner join pesanan_sewa_komputer pesanan " +
+                    "on pesanan.komputer_id = pc2.komputer_id " +
+                    ")";
+            Statement availableComputersStatement = conn.createStatement();
+            ResultSet availableComputersResult = availableComputersStatement.executeQuery(availableComputersQuery);
+            ArrayList<ComputerModel> listOfAvailableComputers = new ArrayList<>();
+            while (availableComputersResult.next()) {
+                listOfAvailableComputers.add(
+                        new ComputerModel(
+                                availableComputersResult.getString("komputer_id"),
+                                availableComputersResult.getString("spek_kategori"),
+                                availableComputersResult.getInt("harga_per_jam")
+                        )
+                );
+            }
+
+            listener.onSuccess(
+                    listOfAvailableComputers,
+                    listOfUnavailableComputers
+            );
 
         } catch (SQLException e) {
-
+            listener.onFailed(new CustomException(e.getMessage()));
         }
     }
 }
