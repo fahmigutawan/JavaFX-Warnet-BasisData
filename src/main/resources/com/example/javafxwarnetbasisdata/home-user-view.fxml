@@ -37,10 +37,11 @@
         </VBox>
       <VBox>
          <children>
-            <ScrollPane>
+            <ScrollPane fitToWidth="true" fitToHeight="true">
                <content>
-                  <HBox spacing="8.0" fx:id="home_user_komputer_list" prefHeight="100.0" prefWidth="200.0" />
-               </content></ScrollPane>
+                  <HBox spacing="8.0" fx:id="home_user_komputer_list" alignment="CENTER_LEFT"/>
+               </content>
+            </ScrollPane>
          </children>
       </VBox>
     </children>
