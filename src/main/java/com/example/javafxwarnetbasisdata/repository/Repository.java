@@ -189,7 +189,7 @@ public class Repository {
             AvailableComputerListener listener
     ) {
         try (Connection conn = connection()) {
-            
+
         } catch (SQLException e) {
 
         }
