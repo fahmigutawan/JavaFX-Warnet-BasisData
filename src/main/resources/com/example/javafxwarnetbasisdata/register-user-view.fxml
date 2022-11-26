@@ -19,7 +19,7 @@
                 <Label text="Registrasi akun baru"/>
                 <TextField fx:id="user_register_username" maxWidth="200" promptText="Username"/>
                 <PasswordField fx:id="user_register_password" maxWidth="200" promptText="Password"/>
-                <Button alignment="CENTER" mnemonicParsing="false" onAction="#onRegisterClicked" text="Daftar"/>
+                <Button fx:id="user_regsiter_register_btn" alignment="CENTER" mnemonicParsing="false" onAction="#onRegisterClicked" text="Daftar"/>
             </children>
         </VBox>
     </center>

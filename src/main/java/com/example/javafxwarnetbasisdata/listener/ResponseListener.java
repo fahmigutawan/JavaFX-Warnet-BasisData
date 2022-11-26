@@ -1,4 +1,6 @@
-package com.example.javafxwarnetbasisdata.util;
+package com.example.javafxwarnetbasisdata.listener;
+
+import com.example.javafxwarnetbasisdata.util.CustomException;
 
 import java.sql.SQLException;
 

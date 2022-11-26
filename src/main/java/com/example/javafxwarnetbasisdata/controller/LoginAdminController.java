@@ -3,7 +3,7 @@ package com.example.javafxwarnetbasisdata.controller;
 import com.example.javafxwarnetbasisdata.repository.Repository;
 import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.CustomScene;
-import com.example.javafxwarnetbasisdata.util.ResponseListener;
+import com.example.javafxwarnetbasisdata.listener.ResponseListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

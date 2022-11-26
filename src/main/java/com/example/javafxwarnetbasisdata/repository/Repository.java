@@ -1,8 +1,10 @@
 package com.example.javafxwarnetbasisdata.repository;
 
+import com.example.javafxwarnetbasisdata.listener.UserModelListener;
+import com.example.javafxwarnetbasisdata.model.UserModel;
 import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.DbUrl;
-import com.example.javafxwarnetbasisdata.util.ResponseListener;
+import com.example.javafxwarnetbasisdata.listener.ResponseListener;
 import com.example.javafxwarnetbasisdata.util.TemporaryMemory;
 
 import java.sql.*;
@@ -149,6 +151,35 @@ public class Repository {
             TemporaryMemory.savedUserId = String.format("user-%d", userCountInt);
             listener.onSuccess(null);
         }catch (SQLException e){
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get user account by user_id
+    public static void getUserByUserId(
+            String user_id,
+            UserModelListener listener
+    ){
+        try(Connection conn = connection()){
+            String command = "SELECT user_id, username " +
+                    "FROM customer " +
+                    "WHERE user_id=?";
+            PreparedStatement statement = conn.prepareStatement(command);
+            statement.setString(1, user_id);
+            ResultSet result = statement.executeQuery();
+
+            if(result.next()){
+                listener.onSuccess(
+                        new UserModel(
+                                result.getString("user_id"),
+                                result.getString("username")
+                        )
+                );
+            }else{
+                listener.onFailed(new CustomException("Error saat mengambil data user"));
+            }
+        }
+        catch (SQLException e){
             listener.onFailed(new CustomException(e.getMessage()));
         }
     }

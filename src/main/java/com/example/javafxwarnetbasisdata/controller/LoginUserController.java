@@ -3,7 +3,7 @@ package com.example.javafxwarnetbasisdata.controller;
 import com.example.javafxwarnetbasisdata.repository.Repository;
 import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.CustomScene;
-import com.example.javafxwarnetbasisdata.util.ResponseListener;
+import com.example.javafxwarnetbasisdata.listener.ResponseListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,10 +34,14 @@ public class LoginUserController {
                     public void onSuccess(Object o) {
                         try{
                             Stage stage = (Stage) user_login_back_btn.getScene().getWindow();
-                            Parent root = FXMLLoader.load(getClass().getResource("/com/example/javafxwarnetbasisdata/home-user-view.fxml"));
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/home-user-view.fxml"));
+                            Parent root = loader.load();
+                            HomeUserController controller = loader.getController();
+                            controller.init();
                             Scene scene = new CustomScene(root);
                             stage.setScene(scene);
                         }catch (Exception e){
+                            e.printStackTrace();
                             Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
                             alert.show();
                         }
