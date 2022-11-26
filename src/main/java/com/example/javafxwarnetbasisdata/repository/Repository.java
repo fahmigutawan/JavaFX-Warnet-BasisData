@@ -1,5 +1,6 @@
 package com.example.javafxwarnetbasisdata.repository;
 
+import com.example.javafxwarnetbasisdata.listener.AvailableComputerListener;
 import com.example.javafxwarnetbasisdata.listener.UserModelListener;
 import com.example.javafxwarnetbasisdata.model.UserModel;
 import com.example.javafxwarnetbasisdata.util.CustomException;
@@ -66,7 +67,7 @@ public class Repository {
             String username,
             String password,
             ResponseListener listener
-    ){
+    ) {
         try (Connection conn = connection()) {
             // Get the count
             String usernameCount = "SELECT COUNT(*) as count " +
@@ -113,15 +114,15 @@ public class Repository {
             String username,
             String password,
             ResponseListener listener
-    ){
-        try(Connection conn = connection()){
+    ) {
+        try (Connection conn = connection()) {
             // Get user count
             String userCount = "SELECT COUNT(*) as count " +
                     "FROM customer";
             PreparedStatement userCountStatement = conn.prepareStatement(userCount);
             ResultSet userCountResult = userCountStatement.executeQuery();
             int userCountInt = 0;
-            if(userCountResult.next()){
+            if (userCountResult.next()) {
                 userCountInt = userCountResult.getInt("count");
             }
 
@@ -130,10 +131,10 @@ public class Repository {
                     "FROM customer " +
                     "WHERE username=?";
             PreparedStatement userWithUsernameCountStatement = conn.prepareStatement(userWithUsernameCount);
-            userWithUsernameCountStatement.setString(1,username);
+            userWithUsernameCountStatement.setString(1, username);
             ResultSet userWithUsernameCountResult = userWithUsernameCountStatement.executeQuery();
-            if(userWithUsernameCountResult.next()){
-                if(userWithUsernameCountResult.getInt("count") > 0){
+            if (userWithUsernameCountResult.next()) {
+                if (userWithUsernameCountResult.getInt("count") > 0) {
                     listener.onFailed(new CustomException("Username telah digunakan. Buat username lain"));
                     return;
                 }
@@ -150,7 +151,7 @@ public class Repository {
 
             TemporaryMemory.savedUserId = String.format("user-%d", userCountInt);
             listener.onSuccess(null);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
         }
     }
@@ -159,8 +160,8 @@ public class Repository {
     public static void getUserByUserId(
             String user_id,
             UserModelListener listener
-    ){
-        try(Connection conn = connection()){
+    ) {
+        try (Connection conn = connection()) {
             String command = "SELECT user_id, username " +
                     "FROM customer " +
                     "WHERE user_id=?";
@@ -168,19 +169,29 @@ public class Repository {
             statement.setString(1, user_id);
             ResultSet result = statement.executeQuery();
 
-            if(result.next()){
+            if (result.next()) {
                 listener.onSuccess(
                         new UserModel(
                                 result.getString("user_id"),
                                 result.getString("username")
                         )
                 );
-            }else{
+            } else {
                 listener.onFailed(new CustomException("Error saat mengambil data user"));
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get available & unavailable computer
+    public static void getAvailableComputers(
+            AvailableComputerListener listener
+    ) {
+        try (Connection conn = connection()) {
+            
+        } catch (SQLException e) {
+
         }
     }
 }

@@ -26,8 +26,6 @@ public class HomeUserController {
                     }
                 }
         );
-
-
     }
 
     public Label home_user_username;
