@@ -44,7 +44,11 @@ public class Repository {
                     if (result.getString("password").equals(adminPassword)) {
                         // Success
                         TemporaryMemory.savedAdminId = result.getString("admin_id");
-                        listener.onSuccess(null);
+                        try {
+                            listener.onSuccess(null);
+                        }catch(Exception e) {
+                            listener.onFailed(new CustomException("Terjadi kesalahan. Coba lagi nanti"));
+                            }
                     } else {
                         // Wrong password
                         listener.onFailed(new CustomException("Password salah. Coba lagi nanti"));
@@ -91,7 +95,11 @@ public class Repository {
                     if (result.getString("password").equals(password)) {
                         // Success
                         TemporaryMemory.savedUserId = result.getString("user_id");
-                        listener.onSuccess(null);
+                        try {
+                            listener.onSuccess(null);
+                        }catch(Exception e) {
+                            listener.onFailed(new CustomException("Terjadi kesalahan. Coba lagi nanti"));
+                        }
                     } else {
                         // Wrong password
                         listener.onFailed(new CustomException("Password salah. Coba lagi nanti"));
@@ -150,7 +158,11 @@ public class Repository {
             registerUserStatement.executeUpdate();
 
             TemporaryMemory.savedUserId = String.format("user-%d", userCountInt);
-            listener.onSuccess(null);
+            try {
+                listener.onSuccess(null);
+            }catch(Exception e) {
+                listener.onFailed(new CustomException("Terjadi kesalahan. Coba lagi nanti"));
+            }
         } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
         }
