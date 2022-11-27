@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="1108.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.HomeAdminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="1177.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.HomeAdminController">
     <children>
         <VBox layoutX="26.0" layoutY="22.0" prefHeight="313.0" prefWidth="118.0" spacing="15.0">
             <children>
@@ -76,14 +76,14 @@
                 <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0" text="Delete" />
             </children>
         </HBox>
-        <TableView fx:id="employee_data" layoutX="339.0" layoutY="22.0" prefHeight="354.0" prefWidth="769.0">
+        <TableView fx:id="employee_data" layoutX="339.0" layoutY="22.0" prefHeight="354.0" prefWidth="807.0">
             <columns>
                 <TableColumn fx:id="employee_id" prefWidth="75.0" text="ID Pegawai" />
                 <TableColumn fx:id="employee_salary_acc" prefWidth="101.3333740234375" text="Salary Acc Num" />
-                <TableColumn fx:id="employee_salary" prefWidth="114.6666259765625" text="Gaji" />
-                <TableColumn fx:id="employee_name" prefWidth="136.0" text="Nama" />
-                <TableColumn fx:id="employee_phone_number" prefWidth="140.0" text="No telp" />
-                <TableColumn fx:id="employee_address" prefWidth="242.00006103515625" text="Tempat tinggal" />
+                <TableColumn fx:id="employee_salary" prefWidth="89.33331298828125" text="Gaji" />
+                <TableColumn fx:id="employee_name" prefWidth="75.33331298828125" text="Nama" />
+                <TableColumn fx:id="employee_phone_number" prefWidth="171.3333740234375" text="No telp" />
+                <TableColumn fx:id="employee_address" prefWidth="294.0" text="Tempat tinggal" />
             </columns>
         </TableView>
     </children>
