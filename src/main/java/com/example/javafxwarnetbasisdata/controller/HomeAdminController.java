@@ -37,12 +37,12 @@ public class HomeAdminController  {
 
             }
         });
-        employee_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        employee_salary_acc.setCellValueFactory(new PropertyValueFactory<>("salaryAcc"));
-        employee_salary.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        employee_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        employee_phone_number.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        employee_address.setCellValueFactory(new PropertyValueFactory<>("address"));
+        employee_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        employee_salary_acc.setCellValueFactory(new PropertyValueFactory<>("SalaryAcc"));
+        employee_salary.setCellValueFactory(new PropertyValueFactory<>("Salary"));
+        employee_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        employee_phone_number.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
+        employee_address.setCellValueFactory(new PropertyValueFactory<>("Address"));
 
         employee_data.setItems(employeeModels);
     }
