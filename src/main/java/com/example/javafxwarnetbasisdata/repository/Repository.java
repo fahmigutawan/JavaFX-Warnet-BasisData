@@ -1,13 +1,18 @@
 package com.example.javafxwarnetbasisdata.repository;
 
 import com.example.javafxwarnetbasisdata.listener.AvailableComputerListener;
+import com.example.javafxwarnetbasisdata.listener.ListOfEmployeeListener;
 import com.example.javafxwarnetbasisdata.listener.UserModelListener;
+import com.example.javafxwarnetbasisdata.model.ComputerModel;
+import com.example.javafxwarnetbasisdata.model.EmployeeModel;
 import com.example.javafxwarnetbasisdata.model.ComputerModel;
 import com.example.javafxwarnetbasisdata.model.UserModel;
 import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.DbUrl;
 import com.example.javafxwarnetbasisdata.listener.ResponseListener;
 import com.example.javafxwarnetbasisdata.util.TemporaryMemory;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -46,7 +51,11 @@ public class Repository {
                     if (result.getString("password").equals(adminPassword)) {
                         // Success
                         TemporaryMemory.savedAdminId = result.getString("admin_id");
-                        listener.onSuccess(null);
+                        try {
+                            listener.onSuccess(null);
+                        }catch(Exception e) {
+                            listener.onFailed(new CustomException("Terjadi kesalahan. Coba lagi nanti"));
+                            }
                     } else {
                         // Wrong password
                         listener.onFailed(new CustomException("Password salah. Coba lagi nanti"));
@@ -93,7 +102,11 @@ public class Repository {
                     if (result.getString("password").equals(password)) {
                         // Success
                         TemporaryMemory.savedUserId = result.getString("user_id");
-                        listener.onSuccess(null);
+                        try {
+                            listener.onSuccess(null);
+                        }catch(Exception e) {
+                            listener.onFailed(new CustomException("Terjadi kesalahan. Coba lagi nanti"));
+                        }
                     } else {
                         // Wrong password
                         listener.onFailed(new CustomException("Password salah. Coba lagi nanti"));
@@ -152,7 +165,11 @@ public class Repository {
             registerUserStatement.executeUpdate();
 
             TemporaryMemory.savedUserId = String.format("user-%d", userCountInt);
-            listener.onSuccess(null);
+            try {
+                listener.onSuccess(null);
+            }catch(Exception e) {
+                listener.onFailed(new CustomException("Terjadi kesalahan. Coba lagi nanti"));
+            }
         } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
         }
@@ -181,6 +198,33 @@ public class Repository {
             } else {
                 listener.onFailed(new CustomException("Error saat mengambil data user"));
             }
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get employee
+    public static void getListOfEmployee(
+            ListOfEmployeeListener listener
+    ) {
+        try (Connection conn = connection()) {
+            String employeeListQuery = "select * from pegawai";
+            Statement employeeStatement = conn.createStatement();
+            ResultSet employeeResult = employeeStatement.executeQuery(employeeListQuery);
+            ArrayList<EmployeeModel> listOfEmployee = new ArrayList<>();
+            if(employeeResult.next()){
+                listOfEmployee.add(
+                        new EmployeeModel(
+                                new SimpleStringProperty(employeeResult.getString("pegawai_id")),
+                                new SimpleStringProperty(employeeResult.getString("salary_acc_number")),
+                                new SimpleIntegerProperty(employeeResult.getInt("gaji")),
+                                new SimpleStringProperty(employeeResult.getString("nama")),
+                                new SimpleStringProperty(employeeResult.getString("noTelp")),
+                                new SimpleStringProperty(employeeResult.getString("jalan") + ", " + employeeResult.getString("provinsi") + ", " + employeeResult.getString("kode_pos"))
+                        )
+                );
+            }
+            listener.onSuccess(listOfEmployee);
         } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
         }

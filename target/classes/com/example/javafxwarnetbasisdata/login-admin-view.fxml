@@ -15,7 +15,7 @@
                 <Label text="Masuk sebagai Admin" />
                 <TextField fx:id="admin_login_username" maxWidth="200" promptText="Username" />
                 <PasswordField fx:id="admin_login_password" maxWidth="200" promptText="Password" />
-                <Button alignment="CENTER" mnemonicParsing="false" text="Masuk" onAction="#onLoginClicked" />
+                <Button fx:id="login_admin_btn" alignment="CENTER" mnemonicParsing="false" text="Masuk" onAction="#onLoginClicked" />
             </children>
         </VBox>
     </center>
