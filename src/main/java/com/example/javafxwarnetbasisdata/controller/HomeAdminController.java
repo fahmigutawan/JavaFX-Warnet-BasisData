@@ -17,12 +17,12 @@ import java.util.ResourceBundle;
 public class HomeAdminController implements Initializable {
     public TableView<EmployeeModel> employee_data;
 
-    public TableColumn employee_id;
-    public TableColumn employee_salary_acc;
-    public TableColumn employee_salary;
-    public TableColumn employee_name;
-    public TableColumn employee_phone_number;
-    public TableColumn employee_address;
+    public TableColumn<EmployeeModel, String> employee_id;
+    public TableColumn<EmployeeModel, String> employee_salary_acc;
+    public TableColumn<EmployeeModel, Integer> employee_salary;
+    public TableColumn<EmployeeModel, String> employee_name;
+    public TableColumn<EmployeeModel, String> employee_phone_number;
+    public TableColumn<EmployeeModel, String> employee_address;
 
     private ObservableList<EmployeeModel> employeeModels = FXCollections.observableArrayList( );
     public void init(){
@@ -41,12 +41,12 @@ public class HomeAdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        employee_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        employee_salary_acc.setCellValueFactory(new PropertyValueFactory<>("SalaryAcc"));
-        employee_salary.setCellValueFactory(new PropertyValueFactory<>("Salary"));
-        employee_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        employee_phone_number.setCellValueFactory(new PropertyValueFactory<>("PhoneNumber"));
-        employee_address.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        employee_id.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+        employee_salary_acc.setCellValueFactory(cellData -> cellData.getValue().salaryAccProperty());
+        employee_salary.setCellValueFactory(cellData -> cellData.getValue().salaryProperty().asObject());
+        employee_name.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        employee_phone_number.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
+        employee_address.setCellValueFactory(cellData -> cellData.getValue().addressProperty());
 
         employee_data.setItems(employeeModels);
     }
