@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="219.0" prefWidth="258.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fitHeight="62.0" fitWidth="59.0" layoutX="100.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@image/logo.jpg" />
+            </image></ImageView>
+        <ComboBox id="cbbox" layoutX="55.0" layoutY="124.0" prefWidth="150.0" promptText="Choose">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Employee" />
+                    <String fx:value="User" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+
+        <Button id="time_add" layoutX="80.0" layoutY="172.0" mnemonicParsing="false" text="Back">
+            <effect>
+                <ColorAdjust saturation="0.5" />
+            </effect></Button>
+        <Button id="time_exit" layoutX="139.0" layoutY="172.0" mnemonicParsing="false" text="Next">
+            <effect>
+                <ColorAdjust saturation="0.5" />
+            </effect></Button>
+        <Label layoutX="17.0" layoutY="90.0" prefHeight="20.0" prefWidth="226.0" text="WHO DO YOU WANT TO MANAGE?" textAlignment="RIGHT">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
