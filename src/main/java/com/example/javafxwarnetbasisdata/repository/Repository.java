@@ -212,7 +212,7 @@ public class Repository {
             Statement employeeStatement = conn.createStatement();
             ResultSet employeeResult = employeeStatement.executeQuery(employeeListQuery);
             ArrayList<EmployeeModel> listOfEmployee = new ArrayList<>();
-            if(employeeResult.next()){
+            while(employeeResult.next()){
                 listOfEmployee.add(
                         new EmployeeModel(
                                 new SimpleStringProperty(employeeResult.getString("pegawai_id")),
