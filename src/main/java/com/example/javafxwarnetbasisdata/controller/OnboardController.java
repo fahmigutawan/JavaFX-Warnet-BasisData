@@ -30,4 +30,13 @@ public class OnboardController{
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void onboardLoginUserClicked() throws IOException {
+        Stage stage = (Stage) onboard_loginuser_btn.getScene().getWindow();
+        Parent loginUserRoot = FXMLLoader.load(getClass().getResource("/com/example/javafxwarnetbasisdata/login-user-view.fxml"));
+        Scene scene = new CustomScene(loginUserRoot);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

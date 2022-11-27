@@ -1,4 +1,4 @@
-package com.example.javafxwarnetbasisdata.controller;
+/*package com.example.javafxwarnetbasisdata.controller;
 
 
 import javafx.collections.FXCollections;
@@ -164,7 +164,7 @@ public class ManageEmployeeController {
         TableView.setItems(list);
     }
 
-}
+}*/
 
 
 

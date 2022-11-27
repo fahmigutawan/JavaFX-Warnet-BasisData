@@ -8,5 +8,10 @@ public class CustomException extends SQLException {
         customMessage = message;
     }
 
+    @Override
+    public void printStackTrace() {
+        super.printStackTrace();
+    }
+
     public String customMessage;
 }

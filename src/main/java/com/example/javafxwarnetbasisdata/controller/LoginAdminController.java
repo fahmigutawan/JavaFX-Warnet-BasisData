@@ -3,7 +3,7 @@ package com.example.javafxwarnetbasisdata.controller;
 import com.example.javafxwarnetbasisdata.repository.Repository;
 import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.CustomScene;
-import com.example.javafxwarnetbasisdata.util.ResponseListener;
+import com.example.javafxwarnetbasisdata.listener.ResponseListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +25,9 @@ public class LoginAdminController {
     public Button admin_login_back_btn;
 
     @FXML
+    public Button login_admin_btn;
+
+    @FXML
     public void onBackClicked() throws IOException {
         Stage stage = (Stage) admin_login_back_btn.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/javafxwarnetbasisdata/onboard-view.fxml"));
@@ -39,8 +42,8 @@ public class LoginAdminController {
                 admin_login_password.getText(),
                 new ResponseListener() {
                     @Override
-                    public void onSuccess(Object o) {
-
+                    public void onSuccess(Object o) throws IOException {
+                        onLoginAdminClicked();
                     }
 
                     @Override
@@ -50,5 +53,14 @@ public class LoginAdminController {
                     }
                 }
         );
+    }
+    public void onLoginAdminClicked() throws IOException {
+            Stage stage = (Stage) login_admin_btn.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/home-admin-view.fxml"));
+            Parent root = loader.load();
+            HomeAdminController controller = loader.getController();
+            controller.init();
+            Scene scene = new CustomScene(root);
+            stage.setScene(scene);
     }
 }
