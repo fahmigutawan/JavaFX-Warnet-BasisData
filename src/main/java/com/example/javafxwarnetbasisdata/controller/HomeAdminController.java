@@ -4,18 +4,18 @@ import com.example.javafxwarnetbasisdata.listener.ListOfEmployeeListener;
 import com.example.javafxwarnetbasisdata.model.EmployeeModel;
 import com.example.javafxwarnetbasisdata.repository.Repository;
 import com.example.javafxwarnetbasisdata.util.CustomException;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-public class HomeAdminController  {
-    public TableView employee_data;
+public class HomeAdminController implements Initializable {
+    public TableView<EmployeeModel> employee_data;
 
     public TableColumn employee_id;
     public TableColumn employee_salary_acc;
@@ -37,6 +37,10 @@ public class HomeAdminController  {
 
             }
         });
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         employee_id.setCellValueFactory(new PropertyValueFactory<>("Id"));
         employee_salary_acc.setCellValueFactory(new PropertyValueFactory<>("SalaryAcc"));
         employee_salary.setCellValueFactory(new PropertyValueFactory<>("Salary"));
@@ -46,6 +50,4 @@ public class HomeAdminController  {
 
         employee_data.setItems(employeeModels);
     }
-    
-    
 }
