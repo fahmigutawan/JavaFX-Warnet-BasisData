@@ -7,6 +7,6 @@ public class DetailComputerController {
     public Label test_label;
 
     public void init(){
-        test_label.setText("SELECTED COMPUTER ID -> " + TemporaryMemory.selectedComputerId);
+        test_label.setText("SELECTED COMPUTER ID -> " + TemporaryMemory.pickedComputerId);
     }
 }

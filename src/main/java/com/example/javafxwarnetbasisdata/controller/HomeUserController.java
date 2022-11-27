@@ -61,7 +61,7 @@ public class HomeUserController {
                             rootFrame.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent mouseEvent) {
-                                    TemporaryMemory.selectedComputerId = item.komputer_id();
+                                    TemporaryMemory.pickedComputerId = item.komputer_id();
                                     try{
                                         Stage stage = (Stage) rootFrame.getScene().getWindow();
                                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/detail-computer-view.fxml"));
