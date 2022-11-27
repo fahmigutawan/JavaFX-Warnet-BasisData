@@ -11,6 +11,8 @@ import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.DbUrl;
 import com.example.javafxwarnetbasisdata.listener.ResponseListener;
 import com.example.javafxwarnetbasisdata.util.TemporaryMemory;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -210,18 +212,18 @@ public class Repository {
             Statement employeeStatement = conn.createStatement();
             ResultSet employeeResult = employeeStatement.executeQuery(employeeListQuery);
             ArrayList<EmployeeModel> listOfEmployee = new ArrayList<>();
-            listOfEmployee.add(
-                    new EmployeeModel(
-                            employeeResult.getString("pegawai_id"),
-                            employeeResult.getString("salary_acc_number"),
-                            employeeResult.getInt("gaji"),
-                            employeeResult.getString("nama"),
-                            employeeResult.getString("noTelp"),
-                            employeeResult.getString("jalan"),
-                            employeeResult.getString("provinsi"),
-                            employeeResult.getString("kode_pos")
-                    )
-            );
+            if(employeeResult.next()){
+                listOfEmployee.add(
+                        new EmployeeModel(
+                                new SimpleStringProperty(employeeResult.getString("pegawai_id")),
+                                new SimpleStringProperty(employeeResult.getString("salary_acc_number")),
+                                new SimpleIntegerProperty(employeeResult.getInt("gaji")),
+                                new SimpleStringProperty(employeeResult.getString("nama")),
+                                new SimpleStringProperty(employeeResult.getString("noTelp")),
+                                new SimpleStringProperty(employeeResult.getString("jalan") + ", " + employeeResult.getString("provinsi") + ", " + employeeResult.getString("kode_pos"))
+                        )
+                );
+            }
             listener.onSuccess(listOfEmployee);
         } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));

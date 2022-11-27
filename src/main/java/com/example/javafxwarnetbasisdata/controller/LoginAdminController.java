@@ -55,10 +55,12 @@ public class LoginAdminController {
         );
     }
     public void onLoginAdminClicked() throws IOException {
-        Stage stage = (Stage) login_admin_btn.getScene().getWindow();
-        Parent loginAdminRoot = FXMLLoader.load(getClass().getResource("/com/example/javafxwarnetbasisdata/home-admin-view.fxml"));
-        Scene scene = new CustomScene(loginAdminRoot);
-        stage.setScene(scene);
-        stage.show();
+            Stage stage = (Stage) login_admin_btn.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/home-admin-view.fxml"));
+            Parent root = loader.load();
+            HomeAdminController controller = loader.getController();
+            controller.init();
+            Scene scene = new CustomScene(root);
+            stage.setScene(scene);
     }
 }

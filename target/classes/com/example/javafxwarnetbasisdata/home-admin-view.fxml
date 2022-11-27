@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.LoginAdminController">
-    <center>
-        <VBox alignment="CENTER" spacing="8.0">
-
-        </VBox>
-    </center>
-
-</BorderPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="455.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.HomeAdminController">
+   <children>
+      <TableView fx:id="employee_data" prefHeight="206.0" prefWidth="627.0">
+        <columns>
+            <TableColumn fx:id="employee_id" prefWidth="75.0" text="ID Pegawai" />
+            <TableColumn fx:id="employee_salary_acc" prefWidth="75.0" text="Salary Acc Num" />
+            <TableColumn fx:id="employee_salary" prefWidth="75.0" text="Gaji" />
+            <TableColumn fx:id="employee_name" prefWidth="75.0" text="Nama" />
+            <TableColumn fx:id="employee_phone_number" prefWidth="75.0" text="No telp" />
+            <TableColumn fx:id="employee_address" prefWidth="75.0" text="Tempat tinggal" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

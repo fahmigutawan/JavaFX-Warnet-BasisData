@@ -1,13 +1,14 @@
 package com.example.javafxwarnetbasisdata.model;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public record EmployeeModel(
-        String id,
-        String salaryAcc,
-        int salary,
-        String name,
-        String noTelp,
-        String street,
-        String province,
-        String postCode
+        SimpleStringProperty id,
+        SimpleStringProperty salaryAcc,
+        SimpleIntegerProperty salary,
+        SimpleStringProperty name,
+        SimpleStringProperty phoneNumber,
+        SimpleStringProperty address
 ) {
 }
