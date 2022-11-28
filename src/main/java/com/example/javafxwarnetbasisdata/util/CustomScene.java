@@ -7,7 +7,7 @@ import javafx.scene.paint.Paint;
 
 public class CustomScene extends Scene {
     public CustomScene(Parent parent) {
-        super(parent, 600,450);
+        super(parent, 1280,720);
     }
 
     public CustomScene(Parent parent, double v, double v1) {
