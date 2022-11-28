@@ -12,7 +12,7 @@
               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
           </padding>
          <children>
-            <HBox prefHeight="305.0" prefWidth="222.0">
+            <HBox prefHeight="305.0" maxWidth="200" minWidth="200" >
                <children>
                     <VBox prefHeight="305.0" prefWidth="179.0" spacing="15.0">
                         <children>
@@ -41,7 +41,7 @@
                                     <Font size="14.0" />
                                 </font>
                             </Label>
-                            <Label prefHeight="17.0" prefWidth="95.0" text="Street">
+                            <Label text="Street">
                                 <font>
                                     <Font size="14.0" />
                                 </font>
@@ -74,7 +74,6 @@
                             <TextField fx:id="kotaField" />
                             <TextField fx:id="provinsiField" />
                             <TextField fx:id="kodePosField" />
-            
                         </children>
                     </VBox>
                </children>
@@ -88,7 +87,7 @@
               </HBox>
          </children>
       </VBox>
-        <TableView fx:id="employee_data" layoutX="339.0" layoutY="22.0" prefHeight="373.0" prefWidth="769.0">
+        <TableView fx:id="employee_data">
             <columns>
 
                 <TableColumn fx:id="employee_id" prefWidth="75.0" text="ID Pegawai" />
