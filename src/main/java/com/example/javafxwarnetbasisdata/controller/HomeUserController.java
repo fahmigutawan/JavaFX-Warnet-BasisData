@@ -15,12 +15,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class HomeUserController {
@@ -52,16 +56,74 @@ public class HomeUserController {
                             ArrayList<ComputerModel> unavailableComputers
                     ) {
                         for (ComputerModel item : availableComputers) {
-                            // We use rootFrame because maybe later we'll add image on the left side
-                            HBox rootFrame = new HBox();
-                            VBox textFrame = new VBox();
-                            rootFrame.getChildren().add(textFrame);
+                            // Image
+                            ImageView img = new ImageView();
+                            img.setImage(new Image(getClass().getResourceAsStream("/com/example/javafxwarnetbasisdata/image/ic_computer_available.png")));
+                            img.setFitWidth(30);
+                            img.setFitHeight(30);
 
-                            // Set onClick event
-                            rootFrame.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                            // Btn
+                            Button btn = new Button();
+
+                            // We use rootFrame because maybe later we'll add image on the left side
+                            VBox rootFrame = new VBox();
+                            VBox contentFrame = new VBox();
+                            VBox textFrame = new VBox();
+                            rootFrame.getChildren().add(contentFrame);
+                            contentFrame.getChildren().add(img);
+                            contentFrame.getChildren().add(textFrame);
+                            contentFrame.getChildren().add(btn);
+
+                            // set Border
+                            contentFrame.setBorder(new Border(
+                                    new BorderStroke(
+                                            Color.BLACK,
+                                            BorderStrokeStyle.SOLID,
+                                            CornerRadii.EMPTY,
+                                            BorderWidths.DEFAULT
+                                    )
+                            ));
+
+                            // set spacing
+                            contentFrame.setSpacing(8);
+
+                            // set Padding
+                            rootFrame.setPadding(new Insets(10f));
+                            contentFrame.setPadding(new Insets(10f));
+//                            textFrame.setPadding(new Insets(10f));
+
+                            // text Tersedia/Tidak tersedia
+                            Label availableStatus = new Label();
+                            availableStatus.setMinSize(80, 0);
+                            availableStatus.setText("Tersedia");
+                            availableStatus.setStyle("-fx-font-weight: bold");
+                            availableStatus.setTextFill(Color.BLACK);
+
+                            // Nama PC
+                            Label idPcLabel = new Label();
+                            idPcLabel.setMinSize(80, 0);
+                            idPcLabel.setText(item.komputer_id());
+                            idPcLabel.setTextFill(Color.BLACK);
+
+                            // Kategori
+                            Label kategoriLabel = new Label();
+                            kategoriLabel.setMinSize(100, 0);
+                            kategoriLabel.setText(item.spek_kategori());
+                            kategoriLabel.setTextFill(Color.BLACK);
+
+                            // Harga
+                            Label hargaLabel = new Label();
+                            hargaLabel.setMinSize(100, 0);
+                            hargaLabel.setText(String.format("Rp %d/JAM", item.harga_per_jam()));
+                            hargaLabel.setTextFill(Color.BLUE);
+
+                            // Detail btn
+                            btn.setText("Lihat Detail >");
+                            btn.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                 @Override
                                 public void handle(MouseEvent mouseEvent) {
                                     TemporaryMemory.pickedComputerId = item.komputer_id();
+
                                     try{
                                         Stage stage = (Stage) rootFrame.getScene().getWindow();
                                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/detail-computer-view.fxml"));
@@ -77,44 +139,6 @@ public class HomeUserController {
                                     }
                                 }
                             });
-
-                            // set Border
-                            textFrame.setBorder(new Border(
-                                    new BorderStroke(
-                                            Color.BLACK,
-                                            BorderStrokeStyle.SOLID,
-                                            CornerRadii.EMPTY,
-                                            BorderWidths.DEFAULT
-                                    )
-                            ));
-
-                            // set Padding
-                            rootFrame.setPadding(new Insets(10f));
-                            textFrame.setPadding(new Insets(10f));
-
-                            // text Tersedia/Tidak tersedia
-                            Label availableStatus = new Label();
-                            availableStatus.setMinSize(80, 0);
-                            availableStatus.setText("Tersedia");
-                            availableStatus.setTextFill(Color.BLACK);
-
-                            // Nama PC
-                            Label idPcLabel = new Label();
-                            idPcLabel.setMinSize(80, 0);
-                            idPcLabel.setText(item.komputer_id());
-                            idPcLabel.setTextFill(Color.BLACK);
-
-                            // Kategori
-                            Label kategoriLabel = new Label();
-                            kategoriLabel.setMinSize(80, 0);
-                            kategoriLabel.setText(item.spek_kategori());
-                            kategoriLabel.setTextFill(Color.BLACK);
-
-                            // Harga
-                            Label hargaLabel = new Label();
-                            hargaLabel.setMinSize(80, 0);
-                            hargaLabel.setText(String.format("Rp %d/JAM", item.harga_per_jam()));
-                            hargaLabel.setTextFill(Color.BLUE);
 
                             // Add content to textFrame
                             textFrame.getChildren().add(availableStatus);
