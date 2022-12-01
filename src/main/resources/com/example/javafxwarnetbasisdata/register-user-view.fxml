@@ -1,35 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.geometry.Insets?>
-<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.javafxwarnetbasisdata.controller.RegisterUserController">
+<BorderPane styleClass="container" stylesheets="@component/style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.RegisterUserController">
     <center>
         <VBox alignment="CENTER" spacing="8.0">
             <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="8.0"/>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="8.0" />
             </padding>
 
             <children>
-                <Label text="Registrasi akun baru"/>
-                <TextField fx:id="user_register_username" maxWidth="200" promptText="Username"/>
-                <PasswordField fx:id="user_register_password" maxWidth="200" promptText="Password"/>
-                <Button fx:id="user_regsiter_register_btn" alignment="CENTER" mnemonicParsing="false" onAction="#onRegisterClicked" text="Daftar"/>
+                <Label text="Registrasi akun baru" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="36.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="user_register_username" maxWidth="512" prefHeight="40" promptText="Username">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="user_register_name" maxWidth="512" prefHeight="40" promptText="Nama">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </TextField>
+                <PasswordField fx:id="user_register_password" maxWidth="512" prefHeight="40" promptText="Password">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </PasswordField>
+                <Button fx:id="user_regsiter_register_btn" alignment="CENTER" mnemonicParsing="false" onAction="#onRegisterClicked" prefHeight="40" prefWidth="512" stylesheets="@component/style.css" text="Daftar">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
             </children>
         </VBox>
     </center>
     <top>
         <HBox BorderPane.alignment="CENTER">
             <padding>
-                <Insets left="20.0" right="20.0" top="20.0"/>
+                <Insets left="20.0" right="20.0" top="20.0" />
             </padding>
             <children>
-                <Button fx:id="user_register_back_btn" mnemonicParsing="false" onAction="#onBackClicked" text="Kembali"/>
+                <Button fx:id="user_register_back_btn" mnemonicParsing="false" onAction="#onBackClicked" styleClass="negativebutton" stylesheets="@component/style.css" text="Kembali" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
             </children>
         </HBox>
     </top>

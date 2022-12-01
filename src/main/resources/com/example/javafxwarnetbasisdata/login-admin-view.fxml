@@ -2,9 +2,11 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.LoginAdminController">
+<BorderPane styleClass="container" stylesheets="@component/style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.LoginAdminController">
     <center>
         <VBox alignment="CENTER" spacing="8.0">
             <padding>
@@ -12,10 +14,27 @@
             </padding>
 
             <children>
-                <Label text="Masuk sebagai Admin" />
-                <TextField fx:id="admin_login_username" maxWidth="200" promptText="Username" />
-                <PasswordField fx:id="admin_login_password" maxWidth="200" promptText="Password" />
-                <Button fx:id="login_admin_btn" alignment="CENTER" mnemonicParsing="false" text="Masuk" onAction="#onLoginClicked" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/ic_admin.png" />
+               </image>
+            </ImageView>
+                <Label text="Masuk sebagai Admin" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font></Label>
+                <TextField fx:id="admin_login_username" maxWidth="512" prefHeight="40" promptText="Username">
+               <font>
+                  <Font size="18.0" />
+               </font></TextField>
+                <PasswordField fx:id="admin_login_password" maxWidth="512" prefHeight="40" promptText="Password">
+               <font>
+                  <Font size="18.0" />
+               </font></PasswordField>
+                <Button fx:id="login_admin_btn" alignment="CENTER" mnemonicParsing="false" onAction="#onLoginClicked" prefHeight="40" prefWidth="512" stylesheets="@component/style.css" text="Masuk">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
             </children>
         </VBox>
     </center>
@@ -25,7 +44,10 @@
                 <Insets left="20.0" right="20.0" top="20.0" />
             </padding>
             <children>
-                <Button fx:id="admin_login_back_btn" mnemonicParsing="false" onAction="#onBackClicked" text="Kembali" />
+                <Button fx:id="admin_login_back_btn" mnemonicParsing="false" onAction="#onBackClicked" styleClass="negativebutton" text="Kembali" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
             </children>
         </HBox>
     </top>

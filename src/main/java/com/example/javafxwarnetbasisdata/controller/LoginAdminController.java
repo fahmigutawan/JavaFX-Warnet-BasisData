@@ -36,13 +36,13 @@ public class LoginAdminController {
     }
 
     @FXML
-    public void onLoginClicked() throws IOException{
+    public void onLoginClicked(){
         Repository.loginAdmin(
                 admin_login_username.getText(),
                 admin_login_password.getText(),
                 new ResponseListener() {
                     @Override
-                    public void onSuccess(Object o) throws IOException {
+                    public void onSuccess(Object o) {
                         onLoginAdminClicked();
                     }
 
@@ -54,11 +54,17 @@ public class LoginAdminController {
                 }
         );
     }
-    public void onLoginAdminClicked() throws IOException {
+
+    public void onLoginAdminClicked(){
             Stage stage = (Stage) login_admin_btn.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/home-admin-view.fxml"));
-            Parent root = loader.load();
-            HomeAdminController controller = loader.getController();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        HomeAdminController controller = loader.getController();
             controller.init();
             Scene scene = new CustomScene(root);
             stage.setScene(scene);

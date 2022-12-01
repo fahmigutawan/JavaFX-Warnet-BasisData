@@ -1,25 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.geometry.Insets?>
-<VBox
-        alignment="CENTER"
-        xmlns="http://javafx.com/javafx/11.0.2"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="com.example.javafxwarnetbasisdata.controller.OnboardController"
-        spacing="8.0"
->
-
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-   </padding>
-
+<GridPane alignment="CENTER_LEFT" styleClass="container" stylesheets="@component/style.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.OnboardController">
+   <columnConstraints>
+      <ColumnConstraints percentWidth="30" />
+      <ColumnConstraints percentWidth="70" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints percentHeight="100" />
+   </rowConstraints>
    <children>
-      <Label text="Selamat datang di Sukamaju-NET App" />
-      <Button fx:id="onboard_loginuser_btn" mnemonicParsing="false" text="Masuk sebagai Pengguna" onAction="#onboardLoginUserClicked"/>
-      <Button fx:id="onboard_loginadmin_btn" mnemonicParsing="false" text="Masuk sebagai Admin" onAction="#onboardLoginAdminClicked"/>
-      <Button fx:id="onboard_exit_btn" mnemonicParsing="false" text="Keluar" />
+      <VBox alignment="CENTER" spacing="16" style="-fx-background-color: white;">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <children>
+            <Button fx:id="onboard_loginuser_btn" mnemonicParsing="false" onAction="#onboardLoginUserClicked" prefHeight="60" prefWidth="300" stylesheets="@component/style.css" text="Sebagai Pengguna &gt;&gt;">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
+            <Button fx:id="onboard_loginadmin_btn" mnemonicParsing="false" onAction="#onboardLoginAdminClicked" prefHeight="60" prefWidth="300" stylesheets="@component/style.css" text="Sebagai Admin &gt;&gt;">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
+            <Button fx:id="onboard_exit_btn" mnemonicParsing="false" prefHeight="60" prefWidth="300" styleClass="negativebutton" stylesheets="@component/style.css" text="Keluar" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Button>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" GridPane.columnIndex="1">
+         <children>
+            <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/sukamajuu.jpg" />
+               </image>
+            </ImageView>
+            <Label text="Selamat datang di Sukamaju NET" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
-</VBox>
+</GridPane>

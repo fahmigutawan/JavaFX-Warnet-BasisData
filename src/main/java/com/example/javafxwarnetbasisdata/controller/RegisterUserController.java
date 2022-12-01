@@ -20,6 +20,7 @@ public class RegisterUserController {
     public PasswordField user_register_password;
     public Button user_register_back_btn;
     public Button user_regsiter_register_btn;
+    public TextField user_register_name;
 
     public void onBackClicked() throws IOException {
         Stage stage = (Stage) user_register_back_btn.getScene().getWindow();
@@ -31,23 +32,13 @@ public class RegisterUserController {
     public void onRegisterClicked() {
         Repository.registerUser(
                 user_register_username.getText(),
+                user_register_name.getText(),
                 user_register_password.getText(),
                 new ResponseListener() {
                     @Override
                     public void onSuccess(Object o) {
-                        try{
-                            Stage stage = (Stage) user_regsiter_register_btn.getScene().getWindow();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/home-user-view.fxml"));
-                            Parent root = loader.load();
-                            HomeUserController controller = loader.getController();
-                            controller.init();
-                            Scene scene = new CustomScene(root);
-                            stage.setScene(scene);
-                        }catch (Exception e){
-                            e.printStackTrace();
-                            Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage());
-                            alert.show();
-                        }
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Akun berhasil dibuat. Silahkan masuk");
+                        alert.show();
                     }
 
                     @Override

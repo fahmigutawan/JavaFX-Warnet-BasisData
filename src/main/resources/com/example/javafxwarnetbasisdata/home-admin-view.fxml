@@ -5,100 +5,369 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.HomeAdminController">
+<GridPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.HomeAdminController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="5" />
+        <RowConstraints percentHeight="85" />
+        <RowConstraints percentHeight="10" />
+    </rowConstraints>
     <children>
-      <VBox prefHeight="399.0" prefWidth="282.0" spacing="17.0">
-          <padding>
-              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-          </padding>
-         <children>
-            <HBox prefHeight="305.0" prefWidth="222.0">
-               <children>
-                    <VBox prefHeight="305.0" prefWidth="179.0" spacing="15.0">
-                        <children>
-                            <Label text="ID">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                            <Label text="Salary Acc Number">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                            <Label text="Salary">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                            <Label text="Name">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                            <Label text="Phone Number">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                            <Label prefHeight="17.0" prefWidth="95.0" text="Street">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                            <Label text="City">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                            <Label text="Province">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                            <Label text="Postcode">
-                                <font>
-                                    <Font size="14.0" />
-                                </font>
-                            </Label>
-                        </children>
-                    </VBox>
-                    <VBox prefHeight="305.0" prefWidth="140.0" spacing="10.0">
-                        <children>
-                            <TextField fx:id="idField" />
-                            <TextField fx:id="salaryAccField" />
-                            <TextField fx:id="salaryField" />
-                            <TextField fx:id="nameField" />
-                            <TextField fx:id="no_telpField" />
-                            <TextField fx:id="jalanField" />
-                            <TextField fx:id="kotaField" />
-                            <TextField fx:id="provinsiField" />
-                            <TextField fx:id="kodePosField" />
-            
-                        </children>
-                    </VBox>
-               </children>
-            </HBox>
-              <HBox alignment="CENTER" prefHeight="31.0" prefWidth="259.0" spacing="8.0">
-                  <children>
-                      <Button fx:id="insertButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="60.0" text="Insert" />
-                      <Button fx:id="updateButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="66.0" text="Update" />
-                      <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="72.0" text="Delete" />
-                  </children>
-              </HBox>
-         </children>
-      </VBox>
-        <TableView fx:id="employee_data" layoutX="339.0" layoutY="22.0" prefHeight="373.0" prefWidth="769.0">
-            <columns>
+        <HBox alignment="CENTER_LEFT" spacing="8">
+            <padding>
+                <Insets top="8" right="8" left="8" bottom="8"/>
+            </padding>
+            <Label text="Cari"/>
+            <TextField fx:id="search_field" prefWidth="180" maxWidth="180"/>
+        </HBox>
+        <GridPane GridPane.rowIndex="1" prefWidth="883.0" styleClass="container" stylesheets="@component/style.css">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25" />
+                <ColumnConstraints percentWidth="75" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="100" />
+            </rowConstraints>
+            <children>
+                <VBox alignment="TOP_CENTER" spacing="17.0" styleClass="container" stylesheets="@component/style.css">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                    <children>
+                        <StackPane fx:id="field_stackpane" prefHeight="150.0" prefWidth="200.0">
+                            <children>
+                                <VBox fx:id="container_field_pegawai" alignment="CENTER" spacing="8">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <Label text="ID" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="idField" disable="true" editable="false" />
+                                            </children>
+                                        </VBox>
 
-                <TableColumn fx:id="employee_id" prefWidth="75.0" text="ID Pegawai" />
-                <TableColumn fx:id="employee_salary_acc" prefWidth="101.0" text="Salary Acc Num" />
-                <TableColumn fx:id="employee_salary" prefWidth="116.0" text="Gaji" />
-                <TableColumn fx:id="employee_name" prefWidth="136.0" text="Nama" />
-                <TableColumn fx:id="employee_phone_number" prefWidth="140.0" text="No telp" />
-                <TableColumn fx:id="employee_address" prefWidth="242.00006103515625" text="Tempat tinggal" />
+                                        <VBox>
+                                            <children>
+                                                <Label text="Salary Acc Number" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="salaryAccField" disable="true" editable="false" />
 
-            </columns>
-        </TableView>
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Name" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="nameField" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Salary" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="salaryField" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Phone Number" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="no_telpField" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Street" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="jalanField" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Postcode" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="kodePosField" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="City" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="kotaField" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Province" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="provinsiField" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="container_field_pedagang" alignment="CENTER" spacing="8" stylesheets="@component/style.css">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <Label text="Pedagang ID" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="pedagang_id_field" disable="true" editable="false" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Nama Lapak" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="pedagang_name_field" />
+
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Nomor Lapak" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="pedagang_number_field" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="container_field_customer" alignment="CENTER" spacing="8" stylesheets="@component/style.css">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <Label text="Customer ID" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="customer_id_field" disable="true" editable="false" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Nama" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="customer_nama_field" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Profile Picture" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="customer_profile_pic_field" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Saldo" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="customer_balance_acc_field" disable="true" editable="false" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                                <VBox fx:id="container_field_komputer" alignment="CENTER" spacing="8" stylesheets="@component/style.css">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <Label text="Komputer ID" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="komputer_id_field" disable="true" editable="false" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Kategori id" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="komputer_kategoriid_field" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Harga per jam" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="komputer_harga_perjam_field" />
+                                            </children>
+                                        </VBox>
+
+                                        <VBox>
+                                            <children>
+                                                <Label text="Status" textFill="WHITE">
+                                                    <font>
+                                                        <Font size="14.0" />
+                                                    </font>
+                                                </Label>
+                                                <TextField fx:id="komputer_Status_field" disable="true" editable="false" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </StackPane>
+                        <VBox spacing="8">
+                            <children>
+                                <HBox spacing="8.0">
+                                    <children>
+                                        <Button fx:id="insertButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="66.0" stylesheets="@component/style.css" text="Insert" />
+                                        <Button fx:id="updateButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="66.0" stylesheets="@component/style.css" text="Update" />
+                                        <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="66.0" styleClass="negativebutton" stylesheets="@component/style.css" text="Delete" />
+                                    </children>
+                                </HBox>
+                                <Button fx:id="clearButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="66.0" stylesheets="@component/style.css" text="Clear" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+                <StackPane fx:id="tabel_stackpane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+                    <children>
+                        <TableView fx:id="employee_table" prefWidth="769.0">
+                            <columns>
+                                <TableColumn fx:id="employee_id" prefWidth="75.0" text="ID Pegawai" />
+                                <TableColumn fx:id="employee_salary" prefWidth="116.0" text="Gaji" />
+                                <TableColumn fx:id="employee_name" prefWidth="136.0" text="Nama" />
+                                <TableColumn fx:id="employee_phone_number" prefWidth="140.0" text="No telp" />
+                                <TableColumn fx:id="employee_street" prefWidth="136.0" text="Jalan" />
+                                <TableColumn fx:id="employee_postcode" prefWidth="136.0" text="Kode Post" />
+                                <TableColumn fx:id="employee_city" prefWidth="136.0" text="Kota" />
+                                <TableColumn fx:id="employee_province" prefWidth="136.0" text="Provinsi" />
+                            </columns>
+                        </TableView>
+                        <TableView fx:id="pedagang_table" prefWidth="769.0">
+                            <columns>
+                                <TableColumn fx:id="pedagang_id" prefWidth="75.0" text="ID Pedagang" />
+                                <TableColumn fx:id="pedagang_standname" prefWidth="200.0" text="Nama Stand" />
+                                <TableColumn fx:id="pedagang_standnumber" prefWidth="200.0" text="Nomor Stand" />
+                            </columns>
+                        </TableView>
+                        <TableView fx:id="customer_table" prefWidth="769.0">
+                            <columns>
+                                <TableColumn fx:id="customer_id_column" prefWidth="75.0" text="ID Customer" />
+                                <TableColumn fx:id="customer_name_column" prefWidth="200.0" text="Nama" />
+                                <TableColumn fx:id="customer_profile_pic_column" prefWidth="200.0" text="Foto Profil" />
+                                <TableColumn fx:id="customer_balance_column" prefWidth="200.0" text="Saldo akun" />
+                            </columns>
+                        </TableView>
+                        <TableView fx:id="komputer_table" prefWidth="769.0">
+                            <columns>
+                                <TableColumn fx:id="komputer_id_column" prefWidth="75.0" text="ID Pedagang" />
+                                <TableColumn fx:id="komputer_kategoriid_column" prefWidth="200.0" text="Kategori Id" />
+                                <TableColumn fx:id="komputer_hargaperjam_column" prefWidth="200.0" text="Harga perjam" />
+                                <TableColumn fx:id="komputer_status_column" prefWidth="200.0" text="Status" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </StackPane>
+            </children>
+        </GridPane>
+        <VBox GridPane.rowIndex="2" alignment="CENTER_RIGHT" style="-fx-background-color: #094074;">
+            <children>
+                <ButtonBar maxHeight="40.0">
+                    <buttons>
+                        <HBox alignment="CENTER_RIGHT" spacing="8" style="-fx-background-color: d;">
+                            <padding>
+                                <Insets left="20.0" right="20.0" />
+                            </padding>
+                            <children>
+                                <Button fx:id="pegawai_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Pegawai">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="pedagang_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Pedagang">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="customer_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Customer">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="komputer_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Komputer">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="keluar_btn" mnemonicParsing="false" styleClass="negativebutton" stylesheets="@component/style.css" text="Keluar" textFill="WHITE">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </VBox>
     </children>
-</HBox>
+</GridPane>

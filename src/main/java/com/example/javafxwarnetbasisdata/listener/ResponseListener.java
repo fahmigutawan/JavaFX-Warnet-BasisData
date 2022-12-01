@@ -6,6 +6,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public interface ResponseListener {
-    void onSuccess(Object o) throws IOException;
+    void onSuccess(Object o);
     void onFailed(CustomException e);
 }
