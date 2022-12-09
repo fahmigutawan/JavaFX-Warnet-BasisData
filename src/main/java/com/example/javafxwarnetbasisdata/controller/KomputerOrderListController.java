@@ -22,8 +22,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
+//import net.sf.jasperreports.engine.JasperFillManager;
+//import net.sf.jasperreports.engine.JasperPrint;
 
 import java.io.IOException;
 import java.net.URL;
@@ -127,9 +127,9 @@ public class KomputerOrderListController implements Initializable {
                             rightContentVbox.getChildren().add(cetakBtn);
                             cetakBtn.setOnMouseClicked(mouseEvent -> {
 
-                                Repository.createReport(
-                                        new HashMap(),
-                                        getClass().getResourceAsStream("/report/sample.jrxml"));
+//                                Repository.createReport(
+//                                        new HashMap(),
+//                                        getClass().getResourceAsStream("/report/sample.jrxml"));
                             });
 
                             // Button akhiri

@@ -8,8 +8,8 @@ import com.example.javafxwarnetbasisdata.util.TemporaryMemory;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Alert;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.view.JasperViewer;
+//import net.sf.jasperreports.engine.*;
+//import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -24,18 +24,18 @@ public class Repository {
     }
 
     // Jasper create report
-    public static void createReport(HashMap map, InputStream is) {
-        try (Connection conn = connection()) {
-//            JasperReport jr = JasperCompileManager.compileReport(is);
-//            JasperViewer.viewReport(jp, false);
-            JasperPrint jp = JasperFillManager.fillReport("report/sample.jasper", null, conn);
-            JasperCompileManager.compileReportToFile("report/sample.jrxml", "report/report.jasper");
-            JasperViewer jv = new JasperViewer(jp, false);
-            jv.setVisible(true);
-        } catch (JRException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void createReport(HashMap map, InputStream is) {
+//        try (Connection conn = connection()) {
+////            JasperReport jr = JasperCompileManager.compileReport(is);
+////            JasperViewer.viewReport(jp, false);
+//            JasperPrint jp = JasperFillManager.fillReport("report/sample.jasper", null, conn);
+//            JasperCompileManager.compileReportToFile("report/sample.jrxml", "report/report.jasper");
+//            JasperViewer jv = new JasperViewer(jp, false);
+//            jv.setVisible(true);
+//        } catch (JRException | SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     // Login to admin account
     public static void loginAdmin(
