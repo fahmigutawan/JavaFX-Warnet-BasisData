@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.example.javafxwarnetbasisdata.controller.AdminQuerySpesialController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="30"/>
+        <RowConstraints percentHeight="60"/>
+        <RowConstraints percentHeight="10"/>
+    </rowConstraints>
+    <VBox alignment="CENTER" spacing="16" styleClass="container" stylesheets="@component/style.css">
+        <children>
+            <Button fx:id="top5makanan_btn" mnemonicParsing="false" prefWidth="200" text="Top 5 Makanan">
+                <font>
+                    <Font size="18.0"/>
+                </font>
+            </Button>
+            <Button fx:id="top5pedagang_btn" mnemonicParsing="false" prefWidth="200" text="Top 5 Pedagang">
+                <font>
+                    <Font size="18.0"/>
+                </font>
+            </Button>
+        </children>
+    </VBox>
+    <StackPane GridPane.rowIndex="1">
+        <TableView fx:id="makanan_table" visible="false">
+            <columns>
+                <TableColumn fx:id="makananid_column" prefWidth="150" text="Makanan ID"/>
+                <TableColumn fx:id="makanan_pedagangid_column" prefWidth="150" text="Pedagang ID"/>
+                <TableColumn fx:id="makanan_nama_column" prefWidth="300" text="Nama Makanan"/>
+                <TableColumn fx:id="makanan_terjual_column" prefWidth="150" text="Terjual"/>
+            </columns>
+        </TableView>
+        <TableView fx:id="pedagang_table" visible="false">
+            <columns>
+                <TableColumn fx:id="pedagang_id_column" prefWidth="150" text="Pedagang ID"/>
+                <TableColumn fx:id="pedagang_nama_column" prefWidth="300" text="Nama Pedagang"/>
+                <TableColumn fx:id="pedagang_pejualan_column" prefWidth="150" text="Penjualan"/>
+            </columns>
+        </TableView>
+    </StackPane>
+    <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #094074;" GridPane.rowIndex="2">
+        <ButtonBar maxHeight="40.0">
+            <buttons>
+                <HBox>
+                    <padding>
+                        <Insets left="20.0" right="20.0"/>
+                    </padding>
+                    <Button fx:id="kembali_btn" mnemonicParsing="false" stylesheets="@component/style.css"
+                            text="Kembali">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Button>
+                </HBox>
+            </buttons>
+        </ButtonBar>
+    </VBox>
+</GridPane>

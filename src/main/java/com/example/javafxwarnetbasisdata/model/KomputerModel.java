@@ -7,5 +7,6 @@ public record KomputerModel(
         SimpleStringProperty komputer_id,
         SimpleStringProperty kategori_id,
         SimpleDoubleProperty harga_perjam,
-        SimpleStringProperty status
+        SimpleStringProperty status,
+        SimpleStringProperty kategori_word
 ) { }

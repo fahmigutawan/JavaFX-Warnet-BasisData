@@ -6,53 +6,119 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.HomeUserController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          style="-fx-background-color: white;" stylesheets="@component/style.css"
+          xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.example.javafxwarnetbasisdata.controller.HomeUserController">
     <columnConstraints>
-        <ColumnConstraints percentWidth="25" />
-        <ColumnConstraints percentWidth="75" />
+        <ColumnConstraints percentWidth="25"/>
+        <ColumnConstraints percentWidth="75"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="100" />
+        <RowConstraints percentHeight="100"/>
     </rowConstraints>
-    <children>
-        <VBox spacing="32" styleClass="container" stylesheets="@component/style.css">
-            <children>
-                <VBox alignment="CENTER">
-                    <padding>
-                        <Insets top="16" />
-                    </padding>
-                    <ImageView fitWidth="128" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@image/sukamajuu.jpg" />
-                        </image>
-                    </ImageView>
-                </VBox>
-                <VBox alignment="CENTER" spacing="8.0">
-                    <children>
-                        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@image/no_profile.png" />
-                            </image>
-                        </ImageView>
-                        <Label fx:id="home_user_username" text="Selamat Datang,..." textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font></Label>
-                    </children>
-                    <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                    </padding>
-                </VBox>
-            </children>
+    <VBox spacing="32" styleClass="container" stylesheets="@component/style.css">
+        <VBox alignment="CENTER">
+            <padding>
+                <Insets top="16"/>
+            </padding>
+            <ImageView fitWidth="128" pickOnBounds="true" preserveRatio="true">
+                <Image url="@image/sukamajuu.jpg"/>
+            </ImageView>
         </VBox>
-        <VBox GridPane.columnIndex="1">
-            <children>
-                <ScrollPane fitToHeight="true" fitToWidth="true">
-                    <content>
-                        <HBox fx:id="home_user_komputer_list" alignment="CENTER_LEFT" spacing="8.0" />
-                    </content>
-                </ScrollPane>
-            </children>
+        <VBox alignment="CENTER" spacing="8.0">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@image/no_profile.png"/>
+            </ImageView>
+            <Label fx:id="home_user_username" text="Selamat Datang,..." textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="18.0"/>
+                </font>
+            </Label>
         </VBox>
-    </children>
+        <VBox spacing="16">
+            <padding>
+                <Insets left="16" right="16"/>
+            </padding>
+            <Label fx:id="komputer_orderlist_btn" text="Riwayat Sewa Komputer" textFill="#73ff69" underline="true">
+                <font>
+                    <Font name="System Bold" size="18.0"/>
+                </font>
+            </Label>
+            <Label fx:id="makanan_orderlist_btn" text="Riwayat Pesan Makanan" textFill="#73ff69" underline="true">
+                <font>
+                    <Font name="System Bold" size="18.0"/>
+                </font>
+            </Label>
+            <Label fx:id="editprofile_btn" text="Edit Profil" textFill="#73ff69" underline="true">
+                <font>
+                    <Font name="System Bold" size="18.0"/>
+                </font>
+            </Label>
+            <Label fx:id="keluar_btn" text="Keluar" textFill="#ff4141" underline="true">
+                <font>
+                    <Font name="System Bold" size="18.0"/>
+                </font>
+            </Label>
+        </VBox>
+    </VBox>
+    <GridPane GridPane.columnIndex="1">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="100"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="35"/>
+            <RowConstraints percentHeight="65"/>
+        </rowConstraints>
+        <ScrollPane fx:id="komputer_scrollpane" fitToWidth="true" minWidth="250">
+            <HBox fx:id="home_user_komputer_list" alignment="CENTER_LEFT" spacing="16">
+                <padding>
+                    <Insets bottom="8" left="16" right="16" top="8"/>
+                </padding>
+            </HBox>
+        </ScrollPane>
+
+        <GridPane GridPane.rowIndex="1">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="65"/>
+                <ColumnConstraints percentWidth="35"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="100"/>
+            </rowConstraints>
+            <ScrollPane fx:id="makanan_scrollpane" fitToWidth="true">
+                <VBox fx:id="home_user_makanan_list" alignment="CENTER_LEFT" spacing="16"/>
+            </ScrollPane>
+            <VBox alignment="BOTTOM_RIGHT" spacing="8" GridPane.columnIndex="1">
+                <padding>
+                    <Insets bottom="8"/>
+                </padding>
+                <TableView fx:id="keranjang_table">
+                    <columns>
+                        <TableColumn fx:id="keranjang_id_column" prefWidth="50" text="ID"/>
+                        <TableColumn fx:id="keranjang_idstand_column" prefWidth="100" text="ID Stand"/>
+                        <TableColumn fx:id="keranjang_namamkn_column" prefWidth="200" text="Nama Makanan"/>
+                    </columns>
+                </TableView>
+                <Button fx:id="keranjang_order_btn" mnemonicParsing="false" minWidth="200" text="Order" disable="true">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="keranjang_delete_btn" mnemonicParsing="false" minWidth="200" text="Remove" disable="true">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="keranjang_clear_btn" mnemonicParsing="false" minWidth="200" text="Clear">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+            </VBox>
+        </GridPane>
+    </GridPane>
 </GridPane>

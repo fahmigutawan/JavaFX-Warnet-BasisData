@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.HomeAdminController">
+<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.HomeAdminController">
     <columnConstraints>
         <ColumnConstraints percentWidth="100" />
     </columnConstraints>
@@ -15,14 +15,17 @@
         <RowConstraints percentHeight="10" />
     </rowConstraints>
     <children>
-        <HBox alignment="CENTER_LEFT" spacing="8">
+        <HBox alignment="CENTER_LEFT" spacing="8" styleClass="container" stylesheets="@component/style.css">
             <padding>
-                <Insets top="8" right="8" left="8" bottom="8"/>
+                <Insets bottom="8" left="8" right="8" top="8" />
             </padding>
-            <Label text="Cari"/>
-            <TextField fx:id="search_field" prefWidth="180" maxWidth="180"/>
+            <Label text="Cari" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font></Label>
+            <TextField fx:id="search_field" maxWidth="180" prefWidth="180" />
         </HBox>
-        <GridPane GridPane.rowIndex="1" prefWidth="883.0" styleClass="container" stylesheets="@component/style.css">
+        <GridPane prefWidth="883.0" styleClass="container" stylesheets="@component/style.css" GridPane.rowIndex="1">
             <columnConstraints>
                 <ColumnConstraints percentWidth="25" />
                 <ColumnConstraints percentWidth="75" />
@@ -320,6 +323,7 @@
                         <TableView fx:id="komputer_table" prefWidth="769.0">
                             <columns>
                                 <TableColumn fx:id="komputer_id_column" prefWidth="75.0" text="ID Pedagang" />
+                                <TableColumn fx:id="komputer_kategoriword_column" prefWidth="200.0" text="Kategori" />
                                 <TableColumn fx:id="komputer_kategoriid_column" prefWidth="200.0" text="Kategori Id" />
                                 <TableColumn fx:id="komputer_hargaperjam_column" prefWidth="200.0" text="Harga perjam" />
                                 <TableColumn fx:id="komputer_status_column" prefWidth="200.0" text="Status" />
@@ -329,7 +333,7 @@
                 </StackPane>
             </children>
         </GridPane>
-        <VBox GridPane.rowIndex="2" alignment="CENTER_RIGHT" style="-fx-background-color: #094074;">
+        <VBox alignment="CENTER_RIGHT" style="-fx-background-color: #094074;" GridPane.rowIndex="2">
             <children>
                 <ButtonBar maxHeight="40.0">
                     <buttons>
@@ -338,6 +342,16 @@
                                 <Insets left="20.0" right="20.0" />
                             </padding>
                             <children>
+                                <Button fx:id="order_komputer_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Order Komputer">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="order_makanan_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Order Makanan">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
                                 <Button fx:id="pegawai_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Pegawai">
                                     <font>
                                         <Font size="18.0" />
@@ -354,6 +368,11 @@
                                     </font>
                                 </Button>
                                 <Button fx:id="komputer_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Komputer">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="queryspesial_btn" mnemonicParsing="false" stylesheets="@component/style.css" text="Query Spesial">
                                     <font>
                                         <Font size="18.0" />
                                     </font>

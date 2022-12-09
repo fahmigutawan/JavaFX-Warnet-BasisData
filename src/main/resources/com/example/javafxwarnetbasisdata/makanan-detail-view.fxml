@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafxwarnetbasisdata.controller.MakananDetailController">
+    <center>
+        <GridPane alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="100" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints percentHeight="30" />
+                <RowConstraints percentHeight="70" />
+            </rowConstraints>
+            <children>
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="300" fitWidth="300" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@image/img_food.jpg" />
+                        </image>
+                    </ImageView>
+                </VBox>
+                <GridPane prefHeight="100.0" prefWidth="200.0" styleClass="container" stylesheets="@component/style.css" GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="60" />
+                        <ColumnConstraints percentWidth="40" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints percentHeight="70" />
+                    </rowConstraints>
+                    <padding>
+                        <Insets bottom="16" left="32" right="32" top="16" />
+                    </padding>
+                    <children>
+                        <VBox>
+                            <padding>
+                                <Insets bottom="16" left="16" right="16" top="16" />
+                            </padding>
+                            <Label text="Detail Makanan" textFill="WHITE" underline="true">
+                                <font>
+                                    <Font name="System Bold" size="24.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="nama_makanan_label" text="PC001" textFill="#ffd900">
+                                <font>
+                                    <Font name="System Bold" size="48.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="makanan_kategori_label" text="Kategori" textFill="#00ff22">
+                                <font>
+                                    <Font name="System Bold" size="24.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="makanan_harga_label" text="Rp 12000" textFill="WHITE">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                            <Label fx:id="makanan_stok_label" text="Stok" textFill="WHITE">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Label>
+                        </VBox>
+                        <VBox alignment="TOP_RIGHT" spacing="8" GridPane.columnIndex="1">
+                            <padding>
+                                <Insets bottom="16" left="16" right="16" top="16" />
+                            </padding>
+                            <children>
+                                <Button fx:id="pesan_btn" mnemonicParsing="false" prefWidth="300" text="Pesan">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                                <Button fx:id="tambah_cart_btn" mnemonicParsing="false" prefWidth="300" text="Tambah ke keranjang">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Button>
+                            </children>
+                        </VBox>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+    </center>
+    <top>
+        <HBox BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="20.0" right="20.0" top="20.0" />
+            </padding>
+            <children>
+                <Button fx:id="kembali_btn" mnemonicParsing="false" styleClass="negativebutton" stylesheets="@component/style.css" text="Kembali" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </top>
+</BorderPane>

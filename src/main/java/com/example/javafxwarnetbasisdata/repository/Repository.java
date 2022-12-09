@@ -6,16 +6,35 @@ import com.example.javafxwarnetbasisdata.util.CustomException;
 import com.example.javafxwarnetbasisdata.util.DbUrl;
 import com.example.javafxwarnetbasisdata.util.TemporaryMemory;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Alert;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.List;
 
 public class Repository {
     private static Connection connection() throws SQLException {
         return DriverManager.getConnection(DbUrl.dbUrl);
+    }
+
+    // Jasper create report
+    public static void createReport(HashMap map, InputStream is) {
+        try (Connection conn = connection()) {
+//            JasperReport jr = JasperCompileManager.compileReport(is);
+//            JasperViewer.viewReport(jp, false);
+            JasperPrint jp = JasperFillManager.fillReport("report/sample.jasper", null, conn);
+            JasperCompileManager.compileReportToFile("report/sample.jrxml", "report/report.jasper");
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        } catch (JRException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // Login to admin account
@@ -154,7 +173,7 @@ public class Repository {
                     "  'https://i.pinimg.com/736x/fe/91/43/fe9143350d8d892b41d2344dbf086cbd.jpg', " +
                     "  0 " +
                     " ) " +
-                    " INSERT INTO customer (customer_id, name, password) " +
+                    " INSERT INTO customer (customer_id, username, password) " +
                     " values(('USER'+cast((@last_id + 1) as varchar(18))), ?,?) " +
                     "commit transaction";
             PreparedStatement registerUserStatement = conn.prepareStatement(registerUser);
@@ -364,7 +383,7 @@ public class Repository {
             statement.setString(1, keyword);
             ResultSet res = statement.executeQuery();
 
-            while(res.next()){
+            while (res.next()) {
                 result.add(
                         new EmployeeModel(
                                 new SimpleStringProperty(res.getString("pegawai_id")),
@@ -380,6 +399,8 @@ public class Repository {
                         )
                 );
             }
+
+            listener.onSuccess(result);
         } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
         }
@@ -418,10 +439,10 @@ public class Repository {
     public static void searchPedagang(
             String keyword,
             ListOfPedagangListener listener
-    ){
+    ) {
         ArrayList<PedagangModel> result = new ArrayList<>();
 
-        try(Connection conn = connection()){
+        try (Connection conn = connection()) {
             String query = "begin transaction " +
                     "declare @search_pedagang varchar(128) " +
                     "set @search_pedagang = ? " +
@@ -435,7 +456,7 @@ public class Repository {
             statement.setString(1, keyword);
             ResultSet res = statement.executeQuery();
 
-            while(res.next()){
+            while (res.next()) {
                 result.add(
                         new PedagangModel(
                                 new SimpleStringProperty(res.getString("pedagang_id")),
@@ -446,7 +467,7 @@ public class Repository {
             }
 
             listener.onSuccess(result);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             listener.onFailed(new CustomException(e.getMessage()));
         }
     }
@@ -595,7 +616,7 @@ public class Repository {
     public static void searchCustomer(
             String keyword,
             ListOfCustomerListener listener
-    ){
+    ) {
         ArrayList<CustomerModel> result = new ArrayList<>();
 
         try (Connection conn = connection()) {
@@ -660,8 +681,10 @@ public class Repository {
         ArrayList<KomputerModel> result = new ArrayList<>();
 
         try (Connection conn = connection()) {
-            String query = "select * " +
-                    "from komputer";
+            String query = "select pc.*, kat.kategori_word " +
+                    "from komputer pc " +
+                    "join kategori_komputer kat " +
+                    "on kat.kategori_id = pc.kategori_id";
             Statement statement = conn.createStatement();
             ResultSet res = statement.executeQuery(query);
 
@@ -671,7 +694,8 @@ public class Repository {
                                 new SimpleStringProperty(res.getString("komputer_id")),
                                 new SimpleStringProperty(res.getString("kategori_id")),
                                 new SimpleDoubleProperty(res.getDouble("harga_perjam")),
-                                new SimpleStringProperty(res.getString("status"))
+                                new SimpleStringProperty(res.getString("status")),
+                                new SimpleStringProperty(res.getString("kategori_word"))
                         )
                 );
             }
@@ -686,18 +710,21 @@ public class Repository {
     public static void searchKomputer(
             String keyword,
             ListOfKomputerListener listener
-    ){
+    ) {
         ArrayList<KomputerModel> result = new ArrayList<>();
 
         try (Connection conn = connection()) {
             String query = "begin transaction " +
                     "declare @search_komputer varchar(128) " +
                     "set @search_komputer = ? " +
-                    "select * from komputer " +
+                    "select pc.*, kat.kategori_word from komputer pc " +
+                    "join kategori_komputer kat " +
+                    "on kat.kategori_id = pc.kategori_id " +
                     "where " +
-                    "status like '%'+@search_komputer+'%' or " +
-                    "komputer_id like '%'+@search_komputer+'%' or " +
-                    "harga_perjam like '%'+@search_komputer+'%' " +
+                    "pc.status like '%'+@search_komputer+'%' or " +
+                    "pc.komputer_id like '%'+@search_komputer+'%' or " +
+                    "kat.kategori_word like '%'+@search_komputer+'%' or " +
+                    "pc.harga_perjam like '%'+@search_komputer+'%' " +
                     "commit transaction";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, keyword);
@@ -709,7 +736,8 @@ public class Repository {
                                 new SimpleStringProperty(res.getString("komputer_id")),
                                 new SimpleStringProperty(res.getString("kategori_id")),
                                 new SimpleDoubleProperty(res.getDouble("harga_perjam")),
-                                new SimpleStringProperty(res.getString("status"))
+                                new SimpleStringProperty(res.getString("status")),
+                                new SimpleStringProperty(res.getString("kategori_word"))
                         )
                 );
             }
@@ -727,7 +755,10 @@ public class Repository {
             ResponseListener listener
     ) {
         try (Connection conn = connection()) {
-            String query = "insert into komputer([komputer_id], [kategori_id], [harga_perjam], [status]) " +
+            String query = "begin transaction " +
+                    "declare @last_id_komputer  numeric(18,0) " +
+                    "set @last_id_komputer = IDENT_CURRENT('dbo.komputer') " +
+                    "insert into komputer([komputer_id], [kategori_id], [harga_perjam], [status]) " +
                     "values( " +
                     "('PC'+cast((@last_id_komputer + 1) as varchar(18))), " +
                     "?, " +
@@ -785,6 +816,520 @@ public class Repository {
 
             listener.onSuccess(null);
         } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get komputer by id
+    public static void getKomputerById(
+            String komputer_id,
+            KomputerModelListener listener
+    ) {
+        try (Connection conn = connection()) {
+            String query = "select pc.*, kat.kategori_word " +
+                    "from komputer pc " +
+                    "join kategori_komputer kat " +
+                    "on kat.kategori_id = pc.kategori_id " +
+                    "where pc.komputer_id=?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, komputer_id);
+            ResultSet res = statement.executeQuery();
+
+            if (res.next()) {
+                listener.onSuccess(
+                        new KomputerModel(
+                                new SimpleStringProperty(res.getString("komputer_id")),
+                                new SimpleStringProperty(res.getString("kategori_id")),
+                                new SimpleDoubleProperty(res.getDouble("harga_perjam")),
+                                new SimpleStringProperty(res.getString("status")),
+                                new SimpleStringProperty(res.getString("kategori_word"))
+                        )
+                );
+                return;
+            }
+
+            listener.onFailed(new CustomException("Komputer tidak ditemukan"));
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Create komputer transaction
+    public static void createKomputerTransaction(
+            String komputer_id,
+            String customer_id,
+            Double harga,
+            ResponseListener listener) {
+        try (Connection conn = connection()) {
+            String query = "begin try " +
+                    "begin transaction " +
+                    "if((select status from komputer where komputer_id=?) = 'not ready') " +
+                    "rollback transaction " +
+                    "else  " +
+                    "update komputer set status='not ready' where komputer_id=? " +
+                    "" +
+                    "declare @count int " +
+                    "set @count = IDENT_CURRENT('dbo.order_komputer') " +
+                    "" +
+                    "insert into order_komputer values( " +
+                    "('ORDER_PC'+cast((@count + 1) as varchar(18))), " +
+                    "?, " +
+                    "?, " +
+                    "?, " +
+                    "'1' " +
+                    ") " +
+                    "commit transaction " +
+                    "end try " +
+                    "begin catch " +
+                    "rollback transaction " +
+                    "end catch ";
+
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, komputer_id);
+            statement.setString(2, komputer_id);
+            statement.setString(3, customer_id);
+            statement.setString(4, komputer_id);
+            statement.setString(5, harga.toString());
+            statement.executeUpdate();
+
+            listener.onSuccess(null);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // End komputer transaction
+    public static void endKomputerTransaction(
+            String customer_id,
+            String order_id,
+            ResponseListener listener
+    ) {
+        try (Connection conn = connection()) {
+            String query = "begin try " +
+                    "begin transaction " +
+                    "declare @komputer_id varchar(5) " +
+                    "if(select customer_id from order_komputer where order_id = '?') != ? " +
+                    "rollback transaction " +
+                    "set @komputer_id = (" +
+                    "select pc.komputer_id from order_komputer ord join komputer pc on pc.komputer_id = ord.komputer_id where ord.order_id = ? " +
+                    ")" +
+                    "update komputer set status = 'ready' where komputer_id = @komputer_id " +
+                    "update order_komputer set status = '3' where order_id = ? " +
+                    "commit transaction " +
+                    "end try " +
+                    "begin catch " +
+                    "rollback transaction " +
+                    "end catch ";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, customer_id);
+            statement.setString(2, order_id);
+            statement.setString(3, order_id);
+
+            statement.executeUpdate();
+
+            listener.onSuccess(null);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get komputer transaction by komputer id
+    public static void getOrderDetailByKomputerId(
+            String komputer_id,
+            OrderModelListener listener
+    ) {
+        try (Connection conn = connection()) {
+            String query = "begin transaction " +
+                    "select * " +
+                    "from order_komputer " +
+                    "where komputer_id =? and status = '1' " +
+                    "commit transaction";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, komputer_id);
+            ResultSet res = statement.executeQuery();
+
+            if (res.next()) {
+                listener.onSuccess(
+                        new OrderModel(
+                                res.getString("order_id"),
+                                res.getString("customer_id"),
+                                res.getString("komputer_id"),
+                                res.getDouble("harga"),
+                                res.getString("status")
+                        )
+                );
+                return;
+            }
+
+            listener.onFailed(new CustomException("Order tidak ditemukan"));
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get list order by customer_id
+    public static void getOrderListByCustomerId(
+            String customer_id,
+            ListOfOrderListener listener
+    ) {
+        ArrayList<OrderModel> result = new ArrayList<>();
+
+        try (Connection conn = connection()) {
+            String query = "select * " +
+                    "from order_komputer " +
+                    "where customer_id = ? " +
+                    "order by id desc";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, customer_id);
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                result.add(
+                        new OrderModel(
+                                res.getString("order_id"),
+                                res.getString("customer_id"),
+                                res.getString("komputer_id"),
+                                res.getDouble("harga"),
+                                res.getString("status")
+                        )
+                );
+            }
+
+            listener.onSuccess(result);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get list makanan
+    public static void getListMakanan(
+            ListOfFoodListener listener
+    ) {
+        ArrayList<FoodModel> result = new ArrayList<>();
+        try (Connection conn = connection()) {
+            String query = "select m.*, kat.kategori_word from makanan m " +
+                    "join kategori_makanan kat " +
+                    "on kat.kategori_id = m.kategori_id";
+            Statement statement = conn.createStatement();
+            ResultSet res = statement.executeQuery(query);
+
+            while (res.next()) {
+                result.add(
+                        new FoodModel(
+                                res.getString("makanan_id"),
+                                res.getString("pedagang_id"),
+                                res.getDouble("harga"),
+                                res.getInt("stok"),
+                                res.getString("nama"),
+                                res.getString("kategori_id"),
+                                res.getString("kategori_word")
+                        )
+                );
+            }
+
+            listener.onSuccess(result);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get list makanan by pedagang_id
+    public static void getListMakananByPedagangId(
+            String pedagang_id,
+            ListOfFoodListener listener
+    ) {
+        ArrayList<FoodModel> result = new ArrayList<>();
+        try (Connection conn = connection()) {
+            String query = "select m.*, kat.kategori_word from makanan m " +
+                    "join kategori_makanan kat " +
+                    "on kat.kategori_id = m.kategori_id " +
+                    "where m.pedagang_id = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, pedagang_id);
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                result.add(
+                        new FoodModel(
+                                res.getString("makanan_id"),
+                                res.getString("pedagang_id"),
+                                res.getDouble("harga"),
+                                res.getInt("stok"),
+                                res.getString("nama"),
+                                res.getString("kategori_id"),
+                                res.getString("kategori_word")
+                        )
+                );
+            }
+
+            listener.onSuccess(result);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get makanan
+    public static void getMakananById(
+            String makanan_id,
+            FoodModelListener listener
+    ) {
+        try (Connection conn = connection()) {
+            String query = "select m.*, kat.kategori_word from makanan m " +
+                    "join kategori_makanan kat " +
+                    "on kat.kategori_id = m.kategori_id " +
+                    "where m.makanan_id = ?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, makanan_id);
+            ResultSet res = statement.executeQuery();
+
+            if (res.next()) {
+                listener.onSuccess(
+                        new FoodModel(
+                                res.getString("makanan_id"),
+                                res.getString("pedagang_id"),
+                                res.getDouble("harga"),
+                                res.getInt("stok"),
+                                res.getString("nama"),
+                                res.getString("kategori_id"),
+                                res.getString("kategori_word")
+                        )
+                );
+                return;
+            }
+
+            listener.onFailed(new CustomException("Makanan tidak ditemukan"));
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get all order komputer
+    public static void getOrderKomputerList(
+            ListOfOrderKomputerListener listener
+    ) {
+        ArrayList<OrderKomputerModel> arr = new ArrayList<>();
+
+        try (Connection conn = connection()) {
+            String query = "select * " +
+                    "from order_komputer";
+            Statement statement = conn.createStatement();
+            ResultSet res = statement.executeQuery(query);
+
+            while (res.next()) {
+                arr.add(
+                        new OrderKomputerModel(
+                                new SimpleStringProperty(res.getString("order_id")),
+                                new SimpleStringProperty(res.getString("customer_id")),
+                                new SimpleStringProperty(res.getString("komputer_id")),
+                                new SimpleDoubleProperty(res.getDouble("harga")),
+                                new SimpleStringProperty(res.getString("status"))
+                        )
+                );
+            }
+
+            listener.onSuccess(arr);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get all order makanan
+    public static void getOrderMakananList(
+            ListOfOrderMakananListener listener
+    ) {
+        ArrayList<OrderMakananModel> arr = new ArrayList<>();
+
+        try (Connection conn = connection()) {
+            String query = "select * from order_makanan";
+            Statement statement = conn.createStatement();
+            ResultSet res = statement.executeQuery(query);
+
+            while (res.next()) {
+                arr.add(
+                        new OrderMakananModel(
+                                res.getString("order_id"),
+                                res.getString("customer_id"),
+                                res.getString("pedagang_id"),
+                                res.getDouble("total_harga"),
+                                res.getString("status")
+                        )
+                );
+            }
+
+            listener.onSuccess(arr);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Get makanan of order makanan
+    public static void getMakananOfOrderMakananList(
+            String order_id,
+            ListOfMakananOfOrderMakananListener listener
+    ) {
+        ArrayList<MakananOfOrderMakananModel> arr = new ArrayList<>();
+
+        try (Connection conn = connection()) {
+            String query = "select * from makanan_of_order_makanan " +
+                    "where order_id=?";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, order_id);
+            ResultSet res = statement.executeQuery();
+
+            while (res.next()) {
+                arr.add(
+                        new MakananOfOrderMakananModel(
+                                res.getString("order_id"),
+                                res.getString("makanan_id")
+                        )
+                );
+            }
+
+            listener.onSuccess(arr);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // Insert makanan to keranjang
+    public static void insertMakananToKeranjang(
+            String customer_id,
+            String pedagang_id,
+            String makanan_id,
+            ResponseListener listener
+    ) {
+        try (Connection conn = connection()) {
+            String query = "insert into keranjang_makanan " +
+                    "values (?, ?, ?)";
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, customer_id);
+            statement.setString(2, pedagang_id);
+            statement.setString(3, makanan_id);
+            statement.executeUpdate();
+
+            listener.onSuccess(null);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // create order makanan
+    public static void createOrderMakanan(
+            String customer_id,
+            List<FoodModel> arr,
+            ResponseListener listener
+    ) {
+        try (Connection conn = connection()) {
+            //get current id
+            String currIdQuery = "select IDENT_CURRENT('dbo.order_makanan') as current_identity";
+            Statement currIdStatement = conn.createStatement();
+            ResultSet res = currIdStatement.executeQuery(currIdQuery);
+            int identity = 0;
+            if (res.next()) {
+                identity = res.getInt("current_identity") + 1;
+            }
+
+            //define order_id
+            String order_id = String.format("ORD-MKN-%d", identity);
+
+            //create order_makanan
+            Double harga = 0.0;
+            String pedagang_id = "";
+            for (FoodModel item : arr) {
+                harga += item.harga();
+                pedagang_id = item.pedagang_id();
+            }
+            String orderQuery = "insert into order_makanan " +
+                    "values(?, ?, ?, ?, ?)";
+            PreparedStatement statement = conn.prepareStatement(orderQuery);
+            statement.setString(1, order_id);
+            statement.setString(2, customer_id);
+            statement.setString(3, pedagang_id);
+            statement.setDouble(4, harga);
+            statement.setString(5, "1");
+            statement.executeUpdate();
+
+            //insert makanan to makanan_of_order_makanan
+            for (FoodModel item : arr) {
+                String makanan_of_orderQuery = "insert into makanan_of_order_makanan " +
+                        "values(?,?)";
+                PreparedStatement makanan_of_orderStatement = conn.prepareStatement(makanan_of_orderQuery);
+                makanan_of_orderStatement.setString(1, order_id);
+                makanan_of_orderStatement.setString(2, item.makanan_id());
+                makanan_of_orderStatement.executeUpdate();
+            }
+
+            listener.onSuccess(null);
+        } catch (SQLException e) {
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // get top 5 makanan by terjual
+    public static void getTop5MakananTerjual(
+            ListOfSpecialQueryMakananListener listener
+    ){
+        ArrayList<SpecialQueryMakananModel> arr = new ArrayList<>();
+
+        try(Connection conn = connection()){
+            String query = "select top 5 " +
+                    "mkn_info.makanan_id, " +
+                    "mkn_info.pedagang_id, " +
+                    "mkn_info.nama, " +
+                    "count(mkn_info.makanan_id) as terjual  " +
+                    "from makanan_of_order_makanan mkn " +
+                    "join makanan mkn_info on mkn_info.makanan_id = mkn.makanan_id " +
+                    "group by mkn_info.makanan_id, mkn_info.pedagang_id, mkn_info.nama";
+            Statement statement = conn.createStatement();
+            ResultSet res = statement.executeQuery(query);
+
+            while(res.next()){
+                arr.add(
+                        new SpecialQueryMakananModel(
+                                res.getString("makanan_id"),
+                                res.getString("pedagang_id"),
+                                res.getString("nama"),
+                                res.getInt("terjual")
+                        )
+                );
+            }
+
+            listener.onSuccess(arr);
+        }catch (SQLException e){
+            listener.onFailed(new CustomException(e.getMessage()));
+        }
+    }
+
+    // get top 5 pedagang by penjualan
+    public static void getTop5PedagangByPenjualan(
+            ListOfSpecialQueryPedagangListener listener
+    ){
+        ArrayList<SpecialQueryPedagangModel> arr = new ArrayList<>();
+
+        try(Connection conn = connection()){
+            String query = "select top 5 " +
+                    "pdg.pedagang_id, " +
+                    "pdg.stand_name, " +
+                    "count(pdg.pedagang_id) as penjualan " +
+                    "from pedagang_information pdg " +
+                    "join order_makanan ord on ord.pedagang_id = pdg.pedagang_id " +
+                    "join makanan_of_order_makanan mkn on mkn.order_id = ord.order_id " +
+                    "group by pdg.pedagang_id, pdg.stand_name";
+            Statement statement = conn.createStatement();
+            ResultSet res = statement.executeQuery(query);
+
+            while(res.next()){
+                arr.add(
+                        new SpecialQueryPedagangModel(
+                                res.getString("pedagang_id"),
+                                res.getString("stand_name"),
+                                res.getInt("penjualan")
+                        )
+                );
+            }
+
+            listener.onSuccess(arr);
+        }catch (SQLException e){
             listener.onFailed(new CustomException(e.getMessage()));
         }
     }

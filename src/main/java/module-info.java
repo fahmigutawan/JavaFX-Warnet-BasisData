@@ -3,6 +3,7 @@ module com.example.javafxwarnetbasisdata {
     requires javafx.fxml;
     requires javafx.web;
 
+    requires jasperreports;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;

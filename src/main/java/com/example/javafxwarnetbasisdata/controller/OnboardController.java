@@ -12,9 +12,11 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
-public class OnboardController{
+public class OnboardController implements Initializable{
     @FXML
     public Button onboard_loginuser_btn;
     @FXML
@@ -38,5 +40,12 @@ public class OnboardController{
         Scene scene = new CustomScene(loginUserRoot);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        onboard_exit_btn.setOnMouseClicked(mouseEvent -> {
+            System.exit(0);
+        });
     }
 }

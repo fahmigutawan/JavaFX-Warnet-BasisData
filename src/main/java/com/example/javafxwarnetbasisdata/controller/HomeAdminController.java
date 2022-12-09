@@ -57,6 +57,7 @@ public class HomeAdminController implements Initializable {
     public TableColumn<KomputerModel, String> komputer_kategoriid_column;
     public TableColumn<KomputerModel, Double> komputer_hargaperjam_column;
     public TableColumn<KomputerModel, String> komputer_status_column;
+    public TableColumn<KomputerModel, String> komputer_kategoriword_column;
 
     public StackPane field_stackpane;
     public StackPane tabel_stackpane;
@@ -96,11 +97,14 @@ public class HomeAdminController implements Initializable {
     public Button customer_btn;
     public Button komputer_btn;
     public Button keluar_btn;
+    public Button order_komputer_btn;
+    public Button order_makanan_btn;
 
     public VBox container_field_pedagang;
     public VBox container_field_pegawai;
     public VBox container_field_customer;
     public VBox container_field_komputer;
+    public Button queryspesial_btn;
 
     private HomeAdminState state = HomeAdminState.Pegawai;
 
@@ -153,6 +157,7 @@ public class HomeAdminController implements Initializable {
         komputer_kategoriid_column.setCellValueFactory(cellData -> cellData.getValue().kategori_id());
         komputer_hargaperjam_column.setCellValueFactory(cellData -> cellData.getValue().harga_perjam().asObject());
         komputer_status_column.setCellValueFactory(cellData -> cellData.getValue().status());
+        komputer_kategoriword_column.setCellValueFactory(cellData -> cellData.getValue().kategori_word());
 
         customer_table.setItems(customerModels);
         pedagang_table.setItems(pedagangModels);
@@ -187,6 +192,30 @@ public class HomeAdminController implements Initializable {
             komputer_Status_field.setText(komputer_table.getSelectionModel().getSelectedItem().status().getValue());
         });
 
+        order_komputer_btn.setOnMouseClicked(mouseEvent -> {
+            Stage stage = (Stage) order_komputer_btn.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/admin-order-komputer-view.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new CustomScene(root);
+            stage.setScene(scene);
+        });
+        order_makanan_btn.setOnMouseClicked(mouseEvent -> {
+            Stage stage = (Stage) order_komputer_btn.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/admin-order-makanan-view.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new CustomScene(root);
+            stage.setScene(scene);
+        });
         pegawai_btn.setOnMouseClicked(mouseEvent -> {
             if (state != HomeAdminState.Pegawai) {
                 state = HomeAdminState.Pegawai;
@@ -210,6 +239,18 @@ public class HomeAdminController implements Initializable {
                 state = HomeAdminState.Komputer;
                 changeTable();
             }
+        });
+        queryspesial_btn.setOnMouseClicked(mouseEvent -> {
+            Stage stage = (Stage) queryspesial_btn.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/admin-queryspesial-view.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Scene scene = new CustomScene(root);
+            stage.setScene(scene);
         });
         keluar_btn.setOnMouseClicked(mouseEvent -> {
             Alert alert = new Alert(
@@ -247,9 +288,9 @@ public class HomeAdminController implements Initializable {
         });
 
         search_field.textProperty().addListener((observableValue, s, t1) -> {
-            if(observableValue.getValue().isEmpty()){
+            if (observableValue.getValue().isEmpty()) {
                 refresh();
-            }else{
+            } else {
                 search(observableValue.getValue());
             }
         });
@@ -658,16 +699,60 @@ public class HomeAdminController implements Initializable {
 
     void search(String keyword) {
         if (state == HomeAdminState.Pegawai) {
+            Repository.searchPegawai(keyword, new ListOfEmployeeListener() {
+                @Override
+                public void onSuccess(ArrayList<EmployeeModel> listOfEmployee) {
+                    employeeModels.clear();
+                    employeeModels.addAll(listOfEmployee);
+                }
 
+                @Override
+                public void onFailed(CustomException e) {
+
+                }
+            });
         }
         if (state == HomeAdminState.Pedagang) {
+            Repository.searchPedagang(keyword, new ListOfPedagangListener() {
+                @Override
+                public void onSuccess(ArrayList<PedagangModel> listOfPedagang) {
+                    pedagangModels.clear();
+                    pedagangModels.addAll(listOfPedagang);
+                }
 
+                @Override
+                public void onFailed(CustomException e) {
+
+                }
+            });
         }
         if (state == HomeAdminState.Customer) {
+            Repository.searchCustomer(keyword, new ListOfCustomerListener() {
+                @Override
+                public void onSuccess(ArrayList<CustomerModel> listOfCustomer) {
+                    customerModels.clear();
+                    customerModels.addAll(listOfCustomer);
+                }
 
+                @Override
+                public void onFailed(CustomException e) {
+
+                }
+            });
         }
         if (state == HomeAdminState.Komputer) {
+            Repository.searchKomputer(keyword, new ListOfKomputerListener() {
+                @Override
+                public void onSuccess(ArrayList<KomputerModel> listOfKomputer) {
+                    komputerModels.clear();
+                    komputerModels.addAll(listOfKomputer);
+                }
 
+                @Override
+                public void onFailed(CustomException e) {
+
+                }
+            });
         }
     }
 

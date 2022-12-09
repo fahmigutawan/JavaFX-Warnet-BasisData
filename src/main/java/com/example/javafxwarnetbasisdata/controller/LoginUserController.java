@@ -36,8 +36,6 @@ public class LoginUserController {
                             Stage stage = (Stage) user_login_back_btn.getScene().getWindow();
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/javafxwarnetbasisdata/home-user-view.fxml"));
                             Parent root = loader.load();
-                            HomeUserController controller = loader.getController();
-                            controller.init();
                             Scene scene = new CustomScene(root);
                             stage.setScene(scene);
                         }catch (Exception e){

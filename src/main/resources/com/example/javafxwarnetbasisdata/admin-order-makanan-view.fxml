@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.example.javafxwarnetbasisdata.controller.AdminOrderMakananController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="90"/>
+        <RowConstraints percentHeight="10"/>
+    </rowConstraints>
+
+    <GridPane>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="65"/>
+            <ColumnConstraints percentWidth="35"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="100"/>
+        </rowConstraints>
+        <TableView fx:id="ordermakanan_table">
+            <columns>
+                <TableColumn fx:id="ordermakanan_orderid_column" prefWidth="138" text="Order ID"/>
+                <TableColumn fx:id="ordermakanan_customerid_column" prefWidth="138.0" text="Customer ID"/>
+                <TableColumn fx:id="ordermakanan_pedagangid_column" prefWidth="138.0" text="Pedagang ID"/>
+                <TableColumn fx:id="ordermakanan_totalharga_column" prefWidth="138.0" text="Total Harga"/>
+                <TableColumn fx:id="ordermakanan_status_column" prefWidth="138.0" text="Status"/>
+            </columns>
+        </TableView>
+        <TableView fx:id="makanan_of_ordermakanan_table" GridPane.columnIndex="1">
+            <columns>
+                <TableColumn fx:id="makanan_of_ordermakanan_orderid_column" prefWidth="138" text="Order ID"/>
+                <TableColumn fx:id="makanan_of_ordermakanan_makananid_column" prefWidth="138.0" text="Makanan ID"/>
+            </columns>
+        </TableView>
+    </GridPane>
+    <VBox style="-fx-background-color: #094074;" GridPane.rowIndex="1" alignment="CENTER_RIGHT">
+        <ButtonBar minHeight="40.0">
+            <padding>
+                <Insets left="20.0" right="20.0"/>
+            </padding>
+            <buttons>
+                <Button fx:id="kembali_btn" mnemonicParsing="false" stylesheets="@component/style.css"
+                        text="Kembali">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Button>
+            </buttons>
+        </ButtonBar>
+    </VBox>
+</GridPane>

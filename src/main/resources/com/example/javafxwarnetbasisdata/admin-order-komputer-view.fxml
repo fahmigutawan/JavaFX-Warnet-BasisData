@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.example.javafxwarnetbasisdata.controller.AdminOrderKomputerController">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="100"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="90"/>
+        <RowConstraints percentHeight="10"/>
+    </rowConstraints>
+
+    <children>
+        <TableView fx:id="orderkomputer_table">
+            <columns>
+                <TableColumn fx:id="orderkomputer_orderid_column" prefWidth="138" text="Order ID"/>
+                <TableColumn fx:id="orderkomputer_customerid_column" prefWidth="138.0" text="Customer ID"/>
+                <TableColumn fx:id="orderkomputer_komputerid_column" prefWidth="138.0" text="Komputer ID"/>
+                <TableColumn fx:id="orderkomputer_harga_column" prefWidth="138.0" text="Harga"/>
+                <TableColumn fx:id="orderkomputer_status_column" prefWidth="138.0" text="Status"/>
+            </columns>
+        </TableView>
+        <VBox style="-fx-background-color: #094074;" GridPane.rowIndex="1" alignment="CENTER_RIGHT">
+            <ButtonBar minHeight="40.0">
+                <padding>
+                    <Insets left="20.0" right="20.0"/>
+                </padding>
+                <buttons>
+                    <Button fx:id="kembali_btn" mnemonicParsing="false" stylesheets="@component/style.css"
+                            text="Kembali">
+                        <font>
+                            <Font size="18.0"/>
+                        </font>
+                    </Button>
+                </buttons>
+            </ButtonBar>
+        </VBox>
+    </children>
+</GridPane>
